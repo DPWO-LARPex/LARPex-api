@@ -2,11 +2,15 @@ from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
 from routes import simple_route
 from dotenv import load_dotenv
+from config.exceptions import NotFoundExceptionModel
 
 app = FastAPI()
 
 """ROUTES"""
-app.include_router(simple_route.router)
+app.include_router(
+    simple_route.router,
+    responses={404: {"model": NotFoundExceptionModel}}
+    )
 
 #Add here routes
 

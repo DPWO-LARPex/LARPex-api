@@ -7,7 +7,7 @@ This directory contains all the routes for the application. Each route is a sepa
 3. Each route must use APIRouter.
 4. Each route must use addnotation `@router.get`, `@router.post`, `@router.put`, `@router.delete` etc.
 5. In route addnotation you should specify the path of the endpoint (e.g. `@router.get("/users")`).
-6. In route addnotation you should specific the response model (e.g. `response_model=UserSchema`).
+6. In route addnotation you should specify the response model (e.g. `response_model=UserSchema`).
 7. Files should be named in lowercase and separated by underscores (e.g. `user_route.py`).
 8. You must inject DB session dependency in route method.
 
