@@ -40,6 +40,7 @@ Use refference from:
    ├── config/                  # Backend functionality and configs
    │   ├── config.py            # Configuration settings  
    │   ├── database.py          # Database connection settings
+   |   ├── exceptions.py        # Custom exceptions
    ├── models/                  # SQLAlchemy models
    │   ├── base.py        # Base classes, mixins
    │   └── ...                  # Other service models
