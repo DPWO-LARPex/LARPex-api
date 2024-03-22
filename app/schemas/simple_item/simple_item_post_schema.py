@@ -7,5 +7,3 @@ class SimpleItemPostSchema(BaseModel):
 
     text: str
     count: int
-
-        

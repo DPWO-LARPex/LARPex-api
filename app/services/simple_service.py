@@ -1,10 +1,14 @@
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from models.simple_item_model import SimpleItemModel
 from schemas.simple_item.simple_item_post_schema import SimpleItemPostSchema
 
 
 def get_simple_item_by_id(simple_item_id: int, db: Session):
-    return db.query(SimpleItemModel).filter(SimpleItemModel.id == simple_item_id).first()
+    simple_item: SimpleItemModel = db.query(SimpleItemModel).filter(SimpleItemModel.id == simple_item_id).first()
+    if(simple_item is None):
+        raise HTTPException(status_code=404, detail="Simple Item not found")
+    return simple_item
 
 def add_simple_item(simple_item: SimpleItemPostSchema, db: Session):
     print(simple_item.text)
@@ -18,3 +22,21 @@ def add_simple_item(simple_item: SimpleItemPostSchema, db: Session):
 
 def get_all_simple_items(db: Session):
     return db.query(SimpleItemModel).all()
+
+def edit_simple_item(simple_item_id: int, simple_item: SimpleItemPostSchema, db: Session):
+    db_simple_item = db.query(SimpleItemModel).filter(SimpleItemModel.id == simple_item_id).first()
+    if(db_simple_item is None):
+        raise HTTPException(status_code=404, detail="Simple Item not found")
+    db_simple_item.text = simple_item.text
+    db_simple_item.count = simple_item.count
+    db.commit()
+    db.refresh(db_simple_item)
+    return db_simple_item
+
+def delete_simple_item(simple_item_id: int, db: Session):
+    db_simple_item = db.query(SimpleItemModel).filter(SimpleItemModel.id == simple_item_id).first()
+    if(db_simple_item is None):
+        raise HTTPException(status_code=404, detail="Simple Item not found")
+    db.delete(db_simple_item)
+    db.commit()
+    return db_simple_item

@@ -10,10 +10,18 @@ router = APIRouter(prefix="/simple")
 def get_simple(db: Session = Depends(get_db)):
     return get_all_simple_items(db)
 
-@router.get("/{simple_item_id}", response_model=SimpleItemPostSchema)
+@router.get("/{simple_item_id}", response_model=SimpleItemGetSchema)
 def get_simple_by_id(simple_item_id: int, db: Session = Depends(get_db)):
     return get_simple_item_by_id(simple_item_id, db)
 
 @router.post("/")
 def add_simple(simple: SimpleItemPostSchema, db: Session = Depends(get_db)):
     return add_simple_item(simple, db)
+
+@router.put("/{simple_item_id}", response_model=SimpleItemGetSchema)
+def edit_simple(simple_item_id: int, simpleItem: SimpleItemPostSchema, db: Session = Depends(get_db)):
+    return edit_simple_item(simple_item_id, simpleItem, db)
+
+@router.delete("/{simple_item_id}", response_model=SimpleItemGetSchema)
+def delete_simple(simple_item_id: int, db: Session = Depends(get_db)):
+    return delete_simple_item(simple_item_id, db)

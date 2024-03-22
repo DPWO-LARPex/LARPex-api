@@ -17,6 +17,7 @@ engine = create_engine("sqlite:///example.db")
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
+"""DEPENDENCY"""
 def get_db():
     db = SessionLocal()
     try:

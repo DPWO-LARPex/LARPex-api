@@ -7,5 +7,3 @@ class SimpleItemGetSchema(BaseModel):
     id: int
     text: str
     count: int
-
-        
