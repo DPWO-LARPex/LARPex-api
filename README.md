@@ -26,6 +26,8 @@ Follow this steps:
 4. Create a router in `app/routers/` directory.
 5. Add the router to the `app/main.py` file.
 
+Check each folder for README with examples.
+
 Use refference from:
 - [Project structure](https://levelup.gitconnected.com/structuring-fastapi-project-using-3-tier-design-pattern-4d2e88a55757)
 - [Using DB](https://python.plainenglish.io/how-to-build-a-rest-api-endpoint-on-top-of-an-existing-legacy-database-using-fastapi-489f38feab98) 
