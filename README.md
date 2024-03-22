@@ -2,7 +2,7 @@
 
 ## Installation
 1. Install Python 3.7
-2. Install pipenv
+2. Install pip
 3. Create venv: `python3 -m venv apiVenv`
 4. Activate venv: `source apiVenv/bin/activate` or `apiVenv\Scripts\activate`
 5. Install requirements: `pip install -r requirements.txt`
