@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
-from routes import simple_route
+from routes import simple_route, game_route
 from dotenv import load_dotenv
 from config.exceptions import NotFoundExceptionModel
 
@@ -12,8 +12,10 @@ app.include_router(
     responses={404: {"model": NotFoundExceptionModel}}
     )
 
-#Add here routes
+app.include_router(
+    game_route.router)
 
+#Add here routes
 
 """OPEN API DOCS"""
 openapi_schema = get_openapi(
