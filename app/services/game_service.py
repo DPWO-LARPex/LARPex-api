@@ -3,14 +3,13 @@ from models.game_model import GameModel
 from schemas.game.game_post_schema import GamePostSchema
 from config.exceptions import NotFoundException
 
-def get_game_by_id(game_id: int, db: Session):
+def get_game_item_by_id(game_id: int, db: Session):
     game: GameModel = db.query(GameModel).filter(GameModel.id == game_id).first()
     if(game is None):
         raise NotFoundException()
     return game
 
-def add_game(game: GamePostSchema, db: Session):
-    print(game.text)
+def add_game_item(game: GamePostSchema, db: Session):
     db_game = GameModel(
         description=game.description,
         name=game.name,
@@ -23,10 +22,10 @@ def add_game(game: GamePostSchema, db: Session):
     db.refresh(db_game)
     return db_game
 
-def get_all_games(db: Session):
+def get_all_game_items(db: Session):
     return db.query(GameModel).all()
 
-def edit_game(game_id: int, game: GamePostSchema, db: Session):
+def edit_game_item(game_id: int, game: GamePostSchema, db: Session):
     db_game = db.query(GameModel).filter(GameModel.id == game_id).first()
     if(db_game is None):
         raise NotFoundException()
@@ -41,7 +40,7 @@ def edit_game(game_id: int, game: GamePostSchema, db: Session):
     db.refresh(db_game)
     return db_game
 
-def delete_game(game_id: int, db: Session):
+def delete_game_item(game_id: int, db: Session):
     db_game = db.query(GameModel).filter(GameModel.id == game_id).first()
     if(db_game is None):
         raise NotFoundException()
