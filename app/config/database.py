@@ -4,6 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import text
 from models.base_gen import Base
+from config.preinit_db import init_db_data
 import os
 
 load_dotenv()
@@ -29,11 +30,15 @@ def get_db():
     finally:
         db.close()
 
+"""PRE-INIT DATABASE"""
+
+
 """PRE-PING DATABASE"""
 
 try:
     db = SessionLocal()
     create_tables() # TODO: REMOVE THIS LINE IN PRODUCTION
+    init_db_data(db) # TODO: REMOVE THIS LINE IN PRODUCTION
     db.execute(text('SELECT 1'))
     db.close()
     print("DATABASE IS READY")
