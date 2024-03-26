@@ -1,14 +1,14 @@
 from fastapi import APIRouter, Depends
 from config.database import get_db
-from schemas.game.game_post_schema import GamePostSchema
 from schemas.game.game_get_schema import GameGetSchema
+from schemas.game.game_post_schema import GamePostSchema
 from services.game_service import *
 from config.exceptions import NotFoundExceptionModel
 
-router = APIRouter(prefix="/games")
+router = APIRouter(prefix="/game")
 
 @router.get("/", response_model=list[GameGetSchema])
-async def get_game(db: Session = Depends(get_db)):
+async def get_games(db: Session = Depends(get_db)):
     return get_all_game_items(db)
 
 @router.get("/{game_id}", response_model=GameGetSchema)

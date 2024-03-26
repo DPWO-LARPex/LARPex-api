@@ -22,6 +22,9 @@ class APIException(HTTPException):
 class NotFoundExceptionModel(BaseModel):
     detail: str = "Object not found"
 
+class ObjectAlreadyExistsExceptionModel(BaseModel):
+    detail: str = "Object already exists"
+
 class NotFoundException(APIException):
     status_code = 404
     detail = NotFoundExceptionModel().detail
@@ -31,5 +34,12 @@ class NotFoundException(APIException):
             self.detail = kwargs["detail"]
         super().__init__(*args, **kwargs)
 
+class ObjectAlreadyExistsException(APIException):
+    status_code = 409
+    detail = ObjectAlreadyExistsExceptionModel().detail
 
+    def __init__(self, *args, **kwargs):
+        if "detail" in kwargs:
+            self.detail = kwargs["detail"]
+        super().__init__(*args, **kwargs)
 
