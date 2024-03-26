@@ -17,6 +17,8 @@ def add_game_item(game: GamePostSchema, db: Session):
     db_Game: Game = db.query(Game).filter(Game.name == game.name).first()
     if(db_Game is not None):
         raise ObjectAlreadyExistsException(detail="Gra o podanej nazwie juz istnieje")
+    
+    #TODO: fix, check if user are in DB
 
     db_Game = Game(
         description=game.description,

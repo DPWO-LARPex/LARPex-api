@@ -1,5 +1,6 @@
 
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Date, DateTime,Float,Text
+from sqlalchemy.orm import relationship
 
 from models.base import Base
 
@@ -10,7 +11,8 @@ class PaymentModel(Base):
     date = Column(Date, name="data")
     amount = Column(Integer, name="kwota")
     payment_method_id = Column(Integer, ForeignKey('MetodaPlatnosci.id_met_plat'), name="metoda_platnosci")
-    #id_osoby = Column(Integer, ForeignKey('Osoba.id_osoby'))
-    person_id = Column(Integer, name="id_osoby")
-    #id_wydarzenia = Column(Integer, ForeignKey('Wydarzenie.id_wydarzenia'))
+    user_id = Column(Integer, ForeignKey('Osoby.id_osoby'), name="id_osoby")
+    #event_id = Column(Integer, ForeignKey('Wydarzenie.id_wydarzenia'), name="id_wydarzenia")
     event_id = Column(Integer, name = "id_wydarzenia")
+    
+    user = relationship("User", back_populates="payments")

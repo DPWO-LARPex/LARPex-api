@@ -11,5 +11,5 @@ class PaymentGetSchema(BaseModel):
     date: datetime 
     amount: int
     payment_method_id: int
-    person_id: int
+    user_id: int
     event_id: int
