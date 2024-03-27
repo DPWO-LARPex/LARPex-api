@@ -54,13 +54,22 @@ app.include_router(
 #     )
 
 app.include_router(
-    event_route.router)
+    event_route.router,
+    prefix=PREFIX,
+    tags=["Events"],
+    responses={404: {"model": NotFoundExceptionModel}})
 
 app.include_router(
-    event_status_route.router)
+    event_status_route.router,
+    prefix=PREFIX,
+    tags=["Event Status"],
+    responses={404: {"model": NotFoundExceptionModel}})
 
 app.include_router(
-    place_route.router)
+    place_route.router,
+    prefix=PREFIX,
+    tags=["Places"],
+    responses={404: {"model": NotFoundExceptionModel}})
 
 
 #Add here routes

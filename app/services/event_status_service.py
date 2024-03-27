@@ -23,3 +23,12 @@ def delete_event_status_item(event_status_id: int, db: Session):
     db.commit()
 
     return db_EventStatus
+
+def get_event_status_item_by_id(event_status_id: int, db: Session):
+    db_EventStatus: EventStatusModel = db.query(EventStatusModel).filter(EventStatusModel.id == event_status_id).first()
+    if (db_EventStatus is None):
+        raise NotFoundException()
+    return db_EventStatus
+
+def get_all_event_statuses(db: Session):
+    return db.query(EventStatusModel).all()

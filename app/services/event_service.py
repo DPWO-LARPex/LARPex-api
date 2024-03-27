@@ -12,10 +12,9 @@ def get_event_item_by_id(event_id: int, db: Session):
     return db_Event
 
 
-def add_event_item(event: EventGetSchema, db: Session):
-    db_Event: EventModel = db.query(EventModel).filter(EventModel.id == event.id).first()
-    if (db_Event is not None):
-        raise ObjectAlreadyExistsException(detail="Gra o podanej nazwie juz istnieje")
+def add_event_item(event: EventPostSchema, db: Session):
+
+    #TODO: dodac walidacje id_user, id_place, id_status
 
     db_Event = EventModel(
         icon=event.icon,
@@ -43,6 +42,9 @@ def edit_event_item(event_id: int, event: EventPostSchema, db: Session):
     db_Event = db.query(EventModel).filter(EventModel.id == event_id).first()
     if (db_Event is None):
         raise NotFoundException()
+    
+    #TODO: dodac walidacje id_user, id_place, id_status
+
     db_Event.icon = event.icon,
     db_Event.tech_desc = event.tech_desc,
     db_Event.client_description = event.client_description,

@@ -25,3 +25,12 @@ def delete_place_item(place_id: int, db: Session):
     db.commit()
 
     return db_Place
+
+def get_place_item_by_id(place_id: int, db: Session):
+    db_Place: PlaceModel = db.query(PlaceModel).filter(PlaceModel.id == place_id).first()
+    if (db_Place is None):
+        raise NotFoundException()
+    return db_Place
+
+def get_all_places(db: Session):
+    return db.query(PlaceModel).all()

@@ -23,3 +23,13 @@ def delete_map_item(map_id: int, db: Session):
     db.commit()
     
     return db_Map
+
+def get_map_item_by_id(map_id: int, db: Session):
+    db_Map: Map = db.query(Map).filter(Map.map_id == map_id).first()
+    if(db_Map is None):
+        raise NotFoundException()
+    
+    return db_Map
+
+def get_all_map_items(db: Session):
+    return db.query(Map).all()

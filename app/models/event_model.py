@@ -15,7 +15,7 @@ class EventModel(Base):
     players_count = Column(Integer, name="liczba_graczy")
     date = Column(Date, name="data")
     price_org = Column(Float, name="cena_org")
-    price_buy_in = Column(Float, name="cena_udzial")
+    price_buy_in = Column(Float, name="cena_udział")
     id_status = Column(Integer, ForeignKey("StatusWydarzenia.id_stat_wyd"), name="status")
     #id_user = Column(Integer, ForeignKey("Osoba.id_osoby"), name="id_osoby")
     id_user = Column(Integer, name="id_osoby")
