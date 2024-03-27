@@ -11,14 +11,14 @@ load_dotenv()
 SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
 
 """FOR SQLITE DATABASE"""
-db_file_path = Path(SQLALCHEMY_DATABASE_URL).resolve()
-engine = create_engine("sqlite:///example.db")
+# db_file_path = Path(SQLALCHEMY_DATABASE_URL).resolve()
+# engine = create_engine("sqlite:///example.db")
 
-def create_tables():
-    Base.metadata.create_all(bind=engine)
+# def create_tables():
+#     Base.metadata.create_all(bind=engine)
 
 """FOR OTHER DATABASES"""
-# engine = create_engine(SQLALCHEMY_DATABASE_URL)
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
@@ -37,7 +37,7 @@ def get_db():
 
 try:
     db = SessionLocal()
-    create_tables() # TODO: REMOVE THIS LINE IN PRODUCTION
+    #create_tables() # TODO: REMOVE THIS LINE IN PRODUCTION
     init_db_data(db) # TODO: REMOVE THIS LINE IN PRODUCTION
     db.execute(text('SELECT 1'))
     db.close()

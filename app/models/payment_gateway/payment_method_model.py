@@ -5,5 +5,5 @@ from models.base import Base
 class PaymentMethodModel(Base):
     __tablename__ = "MetodaPlatnosci"
 
-    id = Column(Integer, primary_key=True, index=True, name="id_met_plat")
+    id = Column(Integer, primary_key=True, index=True, name="id__met_plat")
     payment_name = Column(Text, name="nazwa_platnosci")

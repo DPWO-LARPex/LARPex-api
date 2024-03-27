@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from models.user import User
 
 def __init_payment_methods(db: Session):
-    payment_gateways = ["PayPal", "Przelewy24", "PayU"]   # Payment gateways data
+    payment_gateways = ["P", "A", "U"]   # Payment gateways data
 
     for method in payment_gateways:
         # Check if the payment method already exists in the database
