@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Column, Integer, String, Date, DateTime, Float, Text, ForeignKey
 from sqlalchemy.orm import relationship
-from base import Base
-from event_model import EventModel
+from models.base import Base
+from models.event_model import EventModel
 
 class EventStatusModel(Base):
     __tablename__ = "statuswydarzenia"
