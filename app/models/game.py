@@ -20,5 +20,5 @@ class Game(Base):
     - there are no foreign keys linking these tables.  
     Ensure that referencing columns are associated with a ForeignKey or ForeignKeyConstraint, 
     or specify a 'primaryjoin' expression."""
-    # user = relationship("User", back_populates="games")
-    # maps = relationship("Map", back_populates="game")
+    user = relationship("User", back_populates="games")
+    maps = relationship("Map", back_populates="game")

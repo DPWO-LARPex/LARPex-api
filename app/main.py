@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
+from fastapi.middleware.cors import CORSMiddleware
 from routes import simple_route, game_route, event_route, event_status_route, place_route, payment_route, game_route, user_route, map_route
 from routes.payment_gateway import payment_gateway_route
 from dotenv import load_dotenv
@@ -10,6 +11,19 @@ app = FastAPI()
 """ROUTES"""
 
 PREFIX = "/api"
+
+origins = [
+    "http://localhost",
+    "http://localhost:8080",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(
     payment_gateway_route.router,

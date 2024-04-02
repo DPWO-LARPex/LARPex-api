@@ -11,7 +11,6 @@ load_dotenv()
 SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
 
 """FOR SQLITE DATABASE"""
-# db_file_path = Path(SQLALCHEMY_DATABASE_URL).resolve()
 # engine = create_engine("sqlite:///example.db")
 
 # def create_tables():

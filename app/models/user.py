@@ -10,5 +10,6 @@ class User(Base):
     firstname = Column(Text, name="imie")
     lastname = Column(Text, name="nazwisko")
 
-    # games = relationship("Game", back_populates="user")
-    # payments = relationship("PaymentModel", back_populates="user")
+    games = relationship("Game", back_populates="user")
+    payments = relationship("PaymentModel", back_populates="user")
+    event = relationship("EventModel", back_populates="user")

@@ -8,5 +8,5 @@ class EventStatusModel(Base):
 
     id = Column(Integer, primary_key=True, index=True, name="id_stat_wyd")
     name = Column(Text, name="nazwa_statusu_wyd")
-    # event = relationship("EventModel", back_populates="status")
+    event = relationship("EventModel", back_populates="status")
 

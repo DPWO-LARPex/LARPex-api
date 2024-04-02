@@ -15,4 +15,4 @@ class PaymentModel(Base):
     #event_id = Column(Integer, ForeignKey('Wydarzenie.id_wydarzenia'), name="id_wydarzenia")
     event_id = Column(Integer, name = "id_wydarzenia")
     
-    # user = relationship("User", back_populates="payments")
+    user = relationship("User", back_populates="payments")
