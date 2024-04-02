@@ -1,7 +1,7 @@
 # Backend APP for LarpEx
 
 ## Installation
-1. Install Python 3.7
+1. Install Python 3.11
 2. Install pip
 3. Create venv: `python3 -m venv apiVenv`
 4. Activate venv: `source apiVenv/bin/activate` or `apiVenv\Scripts\activate`
