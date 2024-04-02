@@ -9,7 +9,9 @@
 
 ## Configuration
 - Set up the database connection in `app/config/database.py`
-- Set up the database URL in .env file
+- Set info about the database in `.env` file
+   - `DATABASE_URL` - database URL for postgresql. Example: `postgresql://user:password@localhost:port/dbname`
+   - `USE_SQLITE_DB` - set to `True` if you want to use SQLite database for testing
 
 ## Run
 1. Go to app: `cd app`
