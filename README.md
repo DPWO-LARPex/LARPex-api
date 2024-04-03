@@ -1,6 +1,7 @@
 # Backend APP for LarpEx
 
 ## Installation
+(you can also use Docker to run the app)
 1. Install Python 3.11
 2. Install pip
 3. Create venv: `python3 -m venv apiVenv`
@@ -16,6 +17,21 @@
 ## Run
 1. Go to app: `cd app`
 2. Run server: `uvicorn main:app`
+
+## Docker
+You can use tools: `docket-tool.ps1` or `docker-tool.sh` to build and run the docker container.
+1. Build the container: `./docker-tool.ps1 build`
+2. Run the container: `./docker-tool.ps1 run`
+
+You can also:
+- Check the container status: `./docker-tool.ps1 check`
+- Stop the container: `./docker-tool.ps1 stop`
+- Remove the container and images: `./docker-tool.ps1 rm`
+
+Alternative way:
+- Build the container: `docker build -t larpex-backend .`
+- Run the container: `docker run -d -p 8000:8000 larpex-backend`
+
 
 ## OpenAPI
 http://localhost:8000/docs

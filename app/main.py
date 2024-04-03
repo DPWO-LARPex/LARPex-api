@@ -4,18 +4,26 @@ from fastapi.middleware.cors import CORSMiddleware
 from routes import simple_route, game_route, event_route, event_status_route, place_route, payment_route, game_route, user_route, map_route
 from routes.payment_gateway import payment_gateway_route
 from dotenv import load_dotenv
+import os
 from config.exceptions import NotFoundExceptionModel
 
+load_dotenv()
 app = FastAPI()
 
 """ROUTES"""
 
 PREFIX = "/api"
 
+ORIGIN_WHITELIST = os.getenv("CORS_ORIGIN_WHITELIST")
+
 origins = [
     "http://localhost",
     "http://localhost:5173",
 ]
+
+if ORIGIN_WHITELIST:
+    origin = ORIGIN_WHITELIST.split(",")
+    origins.extend(origin)
 
 app.add_middleware(
     CORSMiddleware,
