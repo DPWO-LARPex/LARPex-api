@@ -13,6 +13,7 @@
 - Set info about the database in `.env` file
    - `DATABASE_URL` - database URL for postgresql. Example: `postgresql://user:password@localhost:port/dbname`
    - `USE_SQLITE_DB` - set to `True` if you want to use SQLite database for testing
+   - `CORS_ORIGIN_WHITELIST` - list of allowed origins for CORS. Example: `http://localhost:3000,http://localhost`
 
 ## Run
 1. Go to app: `cd app`
@@ -28,7 +29,7 @@ You can also:
 - Stop the container: `./docker-tool.ps1 stop`
 - Remove the container and images: `./docker-tool.ps1 rm`
 
-Alternative way:
+### Alternative way:
 - Build the container: `docker build -t larpex-backend .`
 - Run the container: `docker run -d -p 8000:8000 larpex-backend`
 
