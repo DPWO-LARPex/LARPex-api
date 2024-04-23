@@ -13,3 +13,4 @@ class User(Base):
     games = relationship("Game", back_populates="user")
     payments = relationship("PaymentModel", back_populates="user")
     event = relationship("EventModel", back_populates="user")
+    players = relationship("PlayerModel", back_populates="user")
