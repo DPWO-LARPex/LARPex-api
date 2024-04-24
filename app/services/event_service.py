@@ -155,7 +155,7 @@ def add_event_question(question: EventQuestionSchema, db: Session):
     return db_Question
 
 def get_event_questions(event_id: int, db: Session):
-    return db.query(QuestionModel).filter(QuestionModel.event_id == event_id)
+    return db.query(QuestionModel).filter(QuestionModel.event_id == event_id).all()
 
 def get_users(event_id: int, db: Session):
     db_Event = db.query(EventModel).filter(EventModel.id == event_id).first()

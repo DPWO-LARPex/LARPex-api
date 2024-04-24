@@ -8,5 +8,5 @@ class QuestionModel(Base):
 
     question_id = Column(Integer, primary_key=True, index=True, name="id_pytania")
     event_id = Column(Integer, ForeignKey("Wydarzenie.id_wydarzenia"), name="id_wydarzenia")
-    user_id = Column(Integer, ForeignKey("Osoba.id_osoby"), name="id_gracza")
+    user_id = Column(Integer, ForeignKey("Osoba.id_osoby"), name="id_osoby")
     content = Column(Text, name="tresc")
