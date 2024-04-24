@@ -18,7 +18,8 @@ def add_user(simple: UserPostSchema, db: Session):
 
     db_user = User(
         firstname=simple.firstname,
-        lastname=simple.lastname
+        lastname=simple.lastname,
+        email=simple.email
     )
     db.add(db_user)
     db.commit()

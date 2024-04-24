@@ -7,3 +7,4 @@ class UserGetSchema(BaseModel):
     user_id: int
     firstname: str
     lastname: str
+    email: str
