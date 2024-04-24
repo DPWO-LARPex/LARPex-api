@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from models.event_status_model import EventStatusModel
+from models.event_model import EventModel
 from schemas.event_status.event_status_post_schema import EventStatusPostSchema
 from config.exceptions import NotFoundException, ObjectAlreadyExistsException
 

@@ -1,9 +1,10 @@
 from typing import Optional
 from pydantic import BaseModel
 from pydantic import BaseModel, ConfigDict, StringConstraints
+from schemas.user.user_schema import UserSchema
 from datetime import datetime
 
-class EventGetSchema(BaseModel):
+class EventSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id : int
     icon : bytes | None
@@ -16,3 +17,4 @@ class EventGetSchema(BaseModel):
     id_status : int
     id_user : int
     id_place : int
+    users: list[UserSchema] | None

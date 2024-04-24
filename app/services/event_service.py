@@ -1,20 +1,36 @@
 from sqlalchemy.orm import Session
 from models.event_model import EventModel
-from schemas.event.event_post_schema import EventPostSchema
-from schemas.event.event_get_schema import EventGetSchema
+from models.event_status_model import EventStatusModel
+from schemas.event.create_event_schema import CreateEventSchema
+from models.user import User
+from models.place_model import PlaceModel
+from schemas.event.event_schema import EventSchema
+from schemas.event.join_event_schema import JoinEventSchema
+from schemas.event.event_question_schema import EventQuestionSchema
 from config.exceptions import NotFoundException, ObjectAlreadyExistsException
 
 
-def get_event_item_by_id(event_id: int, db: Session):
+def get_by_id(event_id: int, db: Session):
     db_Event: EventModel = db.query(EventModel).filter(EventModel.id == event_id).first()
     if (db_Event is None):
         raise NotFoundException()
     return db_Event
 
 
-def add_event_item(event: EventPostSchema, db: Session):
+def create(event: CreateEventSchema, db: Session):
 
     #TODO: dodac walidacje id_user, id_place, id_status
+    db_status = db.query(EventStatusModel).filter(EventStatusModel.id == event.id_status).first()
+    if (db_status is None):
+        raise NotFoundException(detail="Nie istnieje status o podanym id")
+    
+    db_user = db.query(User).filter(User.user_id == event.id_user).first()
+    if (db_user is None):
+        raise NotFoundException(detail="Nie istnieje user o podanym id")
+    
+    db_place = db.query(PlaceModel).filter(PlaceModel.id == event.id_place).first()
+    if (db_place is None):
+        raise NotFoundException(detail="Nie istnieje miejsce o podanym id")
 
     db_Event = EventModel(
         icon=event.icon,
@@ -34,11 +50,11 @@ def add_event_item(event: EventPostSchema, db: Session):
     return db_Event
 
 
-def get_all_events(db: Session):
+def get_all(db: Session):
     return db.query(EventModel).all()
 
 
-def edit_event_item(event_id: int, event: EventPostSchema, db: Session):
+def edit(event_id: int, event: CreateEventSchema, db: Session):
     db_Event = db.query(EventModel).filter(EventModel.id == event_id).first()
     if (db_Event is None):
         raise NotFoundException()
@@ -61,10 +77,74 @@ def edit_event_item(event_id: int, event: EventPostSchema, db: Session):
     return db_Event
 
 
-def delete_event_item(event_id: int, db: Session):
+def delete(event_id: int, db: Session):
     db_Event = db.query(EventModel).filter(EventModel.id == event_id).first()
     if (db_Event is None):
         raise NotFoundException()
     db.delete(db_Event)
     db.commit()
     return db_Event
+
+def join(event_id: int, join_event: JoinEventSchema, db:Session):
+    db_Event = db.query(EventModel).filter(EventModel.id == event_id).first()
+    if (db_Event is None):
+        raise NotFoundException()
+    
+    db_User = db.query(User).filter(User.email == join_event.email).first()
+    if (db_Event is None):
+        db_User = User(
+            firstname=join_event.firstname,
+            lastname=join_event.lastname,
+            email=join_event.email
+        )
+
+        db.add(db_User)
+        db.commit()
+        db.refresh(db_User)
+
+    if (db_Event not in db_User.events):
+        db_User.events.append(db_Event)
+        db.commit()
+
+    return
+
+def end(event_id: int, db:Session):
+    db_Event = db.query(EventModel).filter(EventModel.id == event_id).first()
+    if (db_Event is None):
+        raise NotFoundException()
+    db_Event.id_status=3
+    db.commit()
+
+    return
+
+def launch(event_id: int, db:Session):
+    db_Event = db.query(EventModel).filter(EventModel.id == event_id).first()
+    if (db_Event is None):
+        raise NotFoundException()
+    
+    db_Event.id_status=1
+    db.commit()
+
+    return
+
+def get_status(event_id: int, db:Session):
+    db_Event = db.query(EventModel).filter(EventModel.id == event_id).first()
+    if (db_Event is None):
+        raise NotFoundException()
+    
+    return db.query(EventStatusModel).filter(EventStatusModel.id == db_Event.id_status).first()
+
+def ask_question(question: EventQuestionSchema, db: Session):
+    db_Event = db.query(EventModel).filter(EventModel.id == question.id_event).first()
+    if (db_Event is None):
+        raise NotFoundException()
+    
+    print('Question for event nr ' + str(question.id_event) + ' : ' + question.quesiton)
+    return
+
+def get_users(event_id: int, db: Session):
+    db_Event = db.query(EventModel).filter(EventModel.id == event_id).first()
+    if (db_Event is None):
+        raise NotFoundException()
+
+    return db_Event.users

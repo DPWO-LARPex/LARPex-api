@@ -8,15 +8,6 @@ from config.exceptions import NotFoundExceptionModel
 
 router = APIRouter(prefix="/event_status")
 
-
-@router.post("/")
-async def add_event_status(event_status: EventStatusPostSchema, db: Session = Depends(get_db)):
-    return add_event_status_to_event(event_status, db)
-
-@router.delete("/{event_status_id}", response_model=EventStatusGetSchema)
-async def delete_event_status(event_status_id: int, db: Session = Depends(get_db)):
-    return delete_event_status_item(event_status_id, db)
-
 @router.get("/{event_status_id}", response_model=EventStatusGetSchema)
 async def get_event_status(event_status_id: int, db: Session = Depends(get_db)):
     return get_event_status_item_by_id(event_status_id, db)
@@ -24,3 +15,7 @@ async def get_event_status(event_status_id: int, db: Session = Depends(get_db)):
 @router.get("/", response_model=List[EventStatusGetSchema])
 async def get_event_statuses(db: Session = Depends(get_db)):
     return get_all_event_statuses(db)
+
+# @router.post("/{event_id}")
+# async def change_event_status(event: CreateEventSchema, db: Session = Depends(get_db)):
+#     return change_status(event, db)

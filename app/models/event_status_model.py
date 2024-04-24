@@ -10,3 +10,7 @@ class EventStatusModel(Base):
     name = Column(Text, name="nazwa_statusu_wyd")
     event = relationship("EventModel", back_populates="status")
 
+# 0 - not_started
+# 1 - ongoing
+# 2 - paused
+# 3 - ended
