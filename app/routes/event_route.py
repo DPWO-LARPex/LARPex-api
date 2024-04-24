@@ -48,7 +48,11 @@ async def get_event_status(event_id: int, db: Session = Depends(get_db)):
 
 @router.post("/question")
 async def send_question(question: EventQuestionSchema, db: Session = Depends(get_db)):
-    return question(question, db)
+    return add_event_question(question, db)
+
+@router.get("/{event_id}/questions")
+async def get_questions(event_id: int, db: Session = Depends(get_db)):
+    return get_event_questions(event_id, db)
 
 @router.get("/{event_id}/users")
 async def get_event_users(event_id: int, db: Session = Depends(get_db)):

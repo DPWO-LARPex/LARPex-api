@@ -4,6 +4,7 @@ from models.event_status_model import EventStatusModel
 from schemas.event.create_event_schema import CreateEventSchema
 from models.user import User
 from models.place_model import PlaceModel
+from models.question_model import QuestionModel
 from schemas.event.event_schema import EventSchema
 from schemas.event.join_event_schema import JoinEventSchema
 from schemas.event.event_question_schema import EventQuestionSchema
@@ -134,13 +135,27 @@ def get_status(event_id: int, db:Session):
     
     return db.query(EventStatusModel).filter(EventStatusModel.id == db_Event.id_status).first()
 
-def ask_question(question: EventQuestionSchema, db: Session):
-    db_Event = db.query(EventModel).filter(EventModel.id == question.id_event).first()
+def add_event_question(question: EventQuestionSchema, db: Session):
+    db_Event = db.query(EventModel).filter(EventModel.id == question.event_id).first()
     if (db_Event is None):
-        raise NotFoundException()
+        raise NotFoundException(detail="Wydarzenie o podanym ID nie istnieje")
     
-    print('Question for event nr ' + str(question.id_event) + ' : ' + question.quesiton)
-    return
+    db_User = db.query(User).filter(User.user_id == question.user_id).first()
+    if (db_User is None):
+        raise NotFoundException(detail="Osoba o podanym ID nie istnieje")
+    
+    db_Question = QuestionModel(
+        event_id = question.event_id,
+        user_id = question.user_id,
+        content = question.content
+        )
+    db.add(db_Question)
+    db.commit()
+    db.refresh(db_Question)
+    return db_Question
+
+def get_event_questions(event_id: int, db: Session):
+    return db.query(QuestionModel).filter(QuestionModel.event_id == event_id)
 
 def get_users(event_id: int, db: Session):
     db_Event = db.query(EventModel).filter(EventModel.id == event_id).first()

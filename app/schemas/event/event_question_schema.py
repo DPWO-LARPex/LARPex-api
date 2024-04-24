@@ -5,5 +5,6 @@ from datetime import datetime
 
 class EventQuestionSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
-    id_event : int
-    quesiton: str
+    event_id : int
+    user_id : int
+    content : str
