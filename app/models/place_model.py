@@ -10,4 +10,6 @@ class PlaceModel(Base):
     number = Column(Integer, name="numer")
     street = Column(Text, name="ulica")
     city = Column(Text, name="miejscowosc")
+
     event = relationship("EventModel", back_populates="place")
+    qr = relationship("QrModel", back_populates="place")

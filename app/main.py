@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
 from fastapi.middleware.cors import CORSMiddleware
-from routes import simple_route, game_route, event_route, event_status_route, place_route, payment_route, game_route, user_route, map_route
+from routes import simple_route, game_route, event_route, event_status_route, place_route, payment_route, game_route, user_route, map_route, qr_route
 from routes.payment_gateway import payment_gateway_route
 from dotenv import load_dotenv
 import os
@@ -93,7 +93,11 @@ app.include_router(
     tags=["Places"],
     responses={404: {"model": NotFoundExceptionModel}})
 
-
+app.include_router(
+    place_route.router,
+    prefix=PREFIX,
+    tags=["qr"],
+    responses={404: {"model": NotFoundExceptionModel}})
 #Add here routes
 
 """OPEN API DOCS"""
