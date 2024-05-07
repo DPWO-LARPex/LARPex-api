@@ -1,4 +1,6 @@
 from sqlalchemy.orm import Session
+from schemas.game.game_get_schema import GameGetSchema
+from schemas.gameplay.gameplay_game_get_schema import GameplayGameGetSchema
 from schemas.milestone.milestone_with_status_schema import MilestoneWithStatusSchema
 from schemas.gameplay_milestones.gameplay_milestone_get_schema import GameplayMilestoneGetSchema
 from models.gameplay_milestone import GameplayMilestone
@@ -80,4 +82,8 @@ def get_gameplay_milestones_by_game_id(game_id: int, db: Session):
 
     return res
 
+def get_all_gameplays(db: Session):
+    gameplays = db.query(Gameplay).all()
+    return gameplays
+    
 
