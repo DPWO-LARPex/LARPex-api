@@ -17,5 +17,5 @@ class PlayerModel(Base):
 
     user = relationship("User", back_populates="players")
     character = relationship("CharacterModel", back_populates="players")
-
+    gameplays = relationship("Gameplay", back_populates="players")
 

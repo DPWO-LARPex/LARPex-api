@@ -22,3 +22,4 @@ class Game(Base):
     or specify a 'primaryjoin' expression."""
     user = relationship("User", back_populates="games")
     maps = relationship("Map", back_populates="game")
+    gameplays = relationship("Gameplay", back_populates="game")

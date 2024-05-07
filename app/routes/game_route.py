@@ -26,7 +26,7 @@ async def edit_game(game_id: int, game: GamePostSchema, db: Session = Depends(ge
 
 @router.get("/game-state/{game_id}", response_model=GameStateGetSchema)
 async def get_game_state_route(game_id: int, db: Session = Depends(get_db)):
-    return get_game_by_id(game_id, db)
+    return get_game_item_by_id(game_id, db)
 
 @router.delete("/{game_id}", response_model=GameGetSchema)
 async def delete_game(game_id: int, db: Session = Depends(get_db)):

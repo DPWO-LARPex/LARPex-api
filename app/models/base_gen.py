@@ -19,3 +19,6 @@ from models.item_model import ItemModel
 from models.microstore_item_model import MicrostoreItemModel
 from models.class_model import ClassModel
 from models.race_model import RaceModel
+from models.gameplay_model import Gameplay
+from models.gameplay_milestone import GameplayMilestone
+from models.milestone import Milestone

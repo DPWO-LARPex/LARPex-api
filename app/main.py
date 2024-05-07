@@ -114,7 +114,7 @@ app.include_router(
 )
 
 app.include_router(
-    place_route.router,
+    qr_route.router,
     prefix=PREFIX,
     tags=["qr"],
     responses={404: {"model": NotFoundExceptionModel}})
