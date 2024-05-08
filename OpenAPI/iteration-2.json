@@ -1,0 +1,3077 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Larpex API",
+        "description": "This is a very simple API for Larpex.",
+        "version": "1.0"
+    },
+    "paths": {
+        "/pay-api/payment-gateway/": {
+            "get": {
+                "tags": [
+                    "Payment Gateway"
+                ],
+                "summary": "Get Payment Methods Route",
+                "operationId": "get_payment_methods_route_pay_api_payment_gateway__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/PaymentMethodGetSchema"
+                                    },
+                                    "type": "array",
+                                    "title": "Response Get Payment Methods Route Pay Api Payment Gateway  Get"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Payment Gateway"
+                ],
+                "summary": "Process Payment Route",
+                "operationId": "process_payment_route_pay_api_payment_gateway__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PaymentPostSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaymentGetSchema"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pay-api/payment-gateway/{payment_method_id}": {
+            "get": {
+                "tags": [
+                    "Payment Gateway"
+                ],
+                "summary": "Get Payment Method By Id Route",
+                "operationId": "get_payment_method_by_id_route_pay_api_payment_gateway__payment_method_id__get",
+                "parameters": [
+                    {
+                        "name": "payment_method_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Payment Method Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaymentMethodGetSchema"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/payments/": {
+            "get": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Get Payments Route",
+                "operationId": "get_payments_route_api_payments__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/PaymentGetSchema"
+                                    },
+                                    "type": "array",
+                                    "title": "Response Get Payments Route Api Payments  Get"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/payments/{payment_id}": {
+            "get": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Get Payment By Id Route",
+                "operationId": "get_payment_by_id_route_api_payments__payment_id__get",
+                "parameters": [
+                    {
+                        "name": "payment_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Payment Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaymentGetSchema"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Edit Payment Route",
+                "operationId": "edit_payment_route_api_payments__payment_id__put",
+                "parameters": [
+                    {
+                        "name": "payment_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Payment Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PaymentPostSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaymentGetSchema"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/game/": {
+            "get": {
+                "tags": [
+                    "Games"
+                ],
+                "summary": "Get Games",
+                "operationId": "get_games_api_game__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/GameGetSchema"
+                                    },
+                                    "type": "array",
+                                    "title": "Response Get Games Api Game  Get"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Games"
+                ],
+                "summary": "Add Game",
+                "operationId": "add_game_api_game__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GamePostSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/game/{game_id}": {
+            "get": {
+                "tags": [
+                    "Games"
+                ],
+                "summary": "Get Game By Id",
+                "operationId": "get_game_by_id_api_game__game_id__get",
+                "parameters": [
+                    {
+                        "name": "game_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Game Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GameGetSchema"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Games"
+                ],
+                "summary": "Edit Game",
+                "operationId": "edit_game_api_game__game_id__put",
+                "parameters": [
+                    {
+                        "name": "game_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Game Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GamePostSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GameGetSchema"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Games"
+                ],
+                "summary": "Delete Game",
+                "operationId": "delete_game_api_game__game_id__delete",
+                "parameters": [
+                    {
+                        "name": "game_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Game Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GameGetSchema"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/game/game-state/{game_id}": {
+            "get": {
+                "tags": [
+                    "Games"
+                ],
+                "summary": "Get Game State Route",
+                "operationId": "get_game_state_route_api_game_game_state__game_id__get",
+                "parameters": [
+                    {
+                        "name": "game_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Game Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GameStateGetSchema"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/{user_id}/games": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get Games By User Id",
+                "operationId": "get_games_by_user_id_api_user__user_id__games_get",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "User Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/GameGetSchema"
+                                    },
+                                    "title": "Response Get Games By User Id Api User  User Id  Games Get"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Add User",
+                "operationId": "add_user_api_user__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserPostSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/{user_id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get User By Id",
+                "operationId": "get_user_by_id_api_user__user_id__get",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "User Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserGetSchema"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/{user_id}/bought_items": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get Bought Items By User Id",
+                "operationId": "get_bought_items_by_user_id_api_user__user_id__bought_items_get",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "User Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BoughtItemGetSchema"
+                                    },
+                                    "title": "Response Get Bought Items By User Id Api User  User Id  Bought Items Get"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/maps/": {
+            "get": {
+                "tags": [
+                    "Maps"
+                ],
+                "summary": "Get Maps",
+                "operationId": "get_maps_api_maps__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/MapGetSchema"
+                                    },
+                                    "type": "array",
+                                    "title": "Response Get Maps Api Maps  Get"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Maps"
+                ],
+                "summary": "Add Map",
+                "operationId": "add_Map_api_maps__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MapPostSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/maps/{map_id}": {
+            "delete": {
+                "tags": [
+                    "Maps"
+                ],
+                "summary": "Delete Map",
+                "operationId": "delete_map_api_maps__map_id__delete",
+                "parameters": [
+                    {
+                        "name": "map_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Map Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MapGetSchema"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Maps"
+                ],
+                "summary": "Get Map",
+                "operationId": "get_map_api_maps__map_id__get",
+                "parameters": [
+                    {
+                        "name": "map_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Map Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MapGetSchema"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/event/": {
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Get Events",
+                "operationId": "get_events_api_event__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Create Event",
+                "operationId": "create_event_api_event__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateEventSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/event/{event_id}": {
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Get Event",
+                "operationId": "get_event_api_event__event_id__get",
+                "parameters": [
+                    {
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Event Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Edit Event",
+                "operationId": "edit_event_api_event__event_id__put",
+                "parameters": [
+                    {
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Event Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateEventSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EventSchema"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Delete Event",
+                "operationId": "delete_event_api_event__event_id__delete",
+                "parameters": [
+                    {
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Event Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EventSchema"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/event/{event_id}/join": {
+            "post": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Join Event",
+                "operationId": "join_event_api_event__event_id__join_post",
+                "parameters": [
+                    {
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Event Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/JoinEventSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/event/{event_id}/launch": {
+            "post": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Launch Event",
+                "operationId": "launch_event_api_event__event_id__launch_post",
+                "parameters": [
+                    {
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Event Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/event/{event_id}/end": {
+            "post": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "End Event",
+                "operationId": "end_event_api_event__event_id__end_post",
+                "parameters": [
+                    {
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Event Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/event/{event_id}/status": {
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Get Event Status",
+                "operationId": "get_event_status_api_event__event_id__status_get",
+                "parameters": [
+                    {
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Event Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EventStatusSchema"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/event/question": {
+            "post": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Send Question",
+                "operationId": "send_question_api_event_question_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EventQuestionSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/event/{event_id}/questions": {
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Get Questions",
+                "operationId": "get_questions_api_event__event_id__questions_get",
+                "parameters": [
+                    {
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Event Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/event/{event_id}/users": {
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Get Event Users",
+                "operationId": "get_event_users_api_event__event_id__users_get",
+                "parameters": [
+                    {
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Event Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/event_status/{event_status_id}": {
+            "get": {
+                "tags": [
+                    "Event Status"
+                ],
+                "summary": "Get Event Status",
+                "operationId": "get_event_status_api_event_status__event_status_id__get",
+                "parameters": [
+                    {
+                        "name": "event_status_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Event Status Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EventStatusGetSchema"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/event_status/": {
+            "get": {
+                "tags": [
+                    "Event Status"
+                ],
+                "summary": "Get Event Statuses",
+                "operationId": "get_event_statuses_api_event_status__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/EventStatusGetSchema"
+                                    },
+                                    "type": "array",
+                                    "title": "Response Get Event Statuses Api Event Status  Get"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/place/": {
+            "get": {
+                "tags": [
+                    "Places"
+                ],
+                "summary": "Get Places",
+                "operationId": "get_places_api_place__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/PlaceGetSchema"
+                                    },
+                                    "type": "array",
+                                    "title": "Response Get Places Api Place  Get"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Places"
+                ],
+                "summary": "Add Place",
+                "operationId": "add_place_api_place__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PlacePostSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/place/{place_id}": {
+            "delete": {
+                "tags": [
+                    "Places"
+                ],
+                "summary": "Delete Place",
+                "operationId": "delete_place_api_place__place_id__delete",
+                "parameters": [
+                    {
+                        "name": "place_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Place Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlaceGetSchema"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Places"
+                ],
+                "summary": "Get Place",
+                "operationId": "get_place_api_place__place_id__get",
+                "parameters": [
+                    {
+                        "name": "place_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Place Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlaceGetSchema"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/microstore/items": {
+            "get": {
+                "tags": [
+                    "Microstore"
+                ],
+                "summary": "Get Available Items Route",
+                "operationId": "get_available_items_route_api_microstore_items_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/MicrostoreItemGetSchema"
+                                    },
+                                    "type": "array",
+                                    "title": "Response Get Available Items Route Api Microstore Items Get"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/gameplay/character-inventory-by-uid/{user_id}": {
+            "get": {
+                "tags": [
+                    "Gameplay"
+                ],
+                "summary": "Get Character Inventory By User Id Route",
+                "operationId": "get_character_inventory_by_user_id_route_api_gameplay_character_inventory_by_uid__user_id__get",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "User Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/gameplay/": {
+            "get": {
+                "tags": [
+                    "Gameplay"
+                ],
+                "summary": "Get Gameplays Route",
+                "operationId": "get_gameplays_route_api_gameplay__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/GameplayGetSchema"
+                                    },
+                                    "type": "array",
+                                    "title": "Response Get Gameplays Route Api Gameplay  Get"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/gameplay/status-by-game-id/{game_id}": {
+            "get": {
+                "tags": [
+                    "Gameplay"
+                ],
+                "summary": "Get Gameplay Status By Game Id Route",
+                "operationId": "get_gameplay_status_by_game_id_route_api_gameplay_status_by_game_id__game_id__get",
+                "parameters": [
+                    {
+                        "name": "game_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Game Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GameplayGetSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/gameplay/status/{gameplay_id}": {
+            "get": {
+                "tags": [
+                    "Gameplay"
+                ],
+                "summary": "Get Gameplay Status By Id Route",
+                "operationId": "get_gameplay_status_by_id_route_api_gameplay_status__gameplay_id__get",
+                "parameters": [
+                    {
+                        "name": "gameplay_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Gameplay Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GameplayGetSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/gameplay/milestones-by-gameplay-id/{gameplay_id}": {
+            "get": {
+                "tags": [
+                    "Gameplay"
+                ],
+                "summary": "Get Gameplay Milestones By Gameplay Id Route",
+                "operationId": "get_gameplay_milestones_by_gameplay_id_route_api_gameplay_milestones_by_gameplay_id__gameplay_id__get",
+                "parameters": [
+                    {
+                        "name": "gameplay_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Gameplay Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GameplayMilestoneGetSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/gameplay/milestones-by-game-id/{game_id}": {
+            "get": {
+                "tags": [
+                    "Gameplay"
+                ],
+                "summary": "Get Gameplay Milestones By Game Id Route",
+                "operationId": "get_gameplay_milestones_by_game_id_route_api_gameplay_milestones_by_game_id__game_id__get",
+                "parameters": [
+                    {
+                        "name": "game_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Game Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GameplayMilestoneGetSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/player/info-by-uid/{user_id}": {
+            "get": {
+                "tags": [
+                    "Players"
+                ],
+                "summary": "Get Player Info By Uid Route",
+                "operationId": "get_player_info_by_uid_route_api_player_info_by_uid__user_id__get",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "User Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlayerInfoGetSchema"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/qr/{qr_id}": {
+            "get": {
+                "tags": [
+                    "qr"
+                ],
+                "summary": "Process Qr",
+                "operationId": "process_qr_api_qr__qr_id__get",
+                "parameters": [
+                    {
+                        "name": "qr_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Qr Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/QrGetSchema"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundExceptionModel"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BoughtItemGetSchema": {
+                "properties": {
+                    "user_id": {
+                        "type": "integer",
+                        "title": "User Id"
+                    },
+                    "is_premium": {
+                        "type": "boolean",
+                        "title": "Is Premium"
+                    },
+                    "virtual_currency": {
+                        "type": "number",
+                        "title": "Virtual Currency"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "user_id",
+                    "is_premium",
+                    "virtual_currency"
+                ],
+                "title": "BoughtItemGetSchema"
+            },
+            "CreateEventSchema": {
+                "properties": {
+                    "icon": {
+                        "type": "string",
+                        "format": "binary",
+                        "title": "Icon"
+                    },
+                    "tech_desc": {
+                        "type": "string",
+                        "title": "Tech Desc"
+                    },
+                    "client_description": {
+                        "type": "string",
+                        "title": "Client Description"
+                    },
+                    "players_count": {
+                        "type": "integer",
+                        "title": "Players Count"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Date"
+                    },
+                    "price_org": {
+                        "type": "number",
+                        "title": "Price Org"
+                    },
+                    "price_buy_in": {
+                        "type": "number",
+                        "title": "Price Buy In"
+                    },
+                    "id_status": {
+                        "type": "integer",
+                        "title": "Id Status"
+                    },
+                    "id_user": {
+                        "type": "integer",
+                        "title": "Id User"
+                    },
+                    "id_place": {
+                        "type": "integer",
+                        "title": "Id Place"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "icon",
+                    "tech_desc",
+                    "client_description",
+                    "players_count",
+                    "date",
+                    "price_org",
+                    "price_buy_in",
+                    "id_status",
+                    "id_user",
+                    "id_place"
+                ],
+                "title": "CreateEventSchema"
+            },
+            "EventQuestionSchema": {
+                "properties": {
+                    "event_id": {
+                        "type": "integer",
+                        "title": "Event Id"
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "title": "User Id"
+                    },
+                    "content": {
+                        "type": "string",
+                        "title": "Content"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "event_id",
+                    "user_id",
+                    "content"
+                ],
+                "title": "EventQuestionSchema"
+            },
+            "EventSchema": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "icon": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "binary"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Icon"
+                    },
+                    "tech_desc": {
+                        "type": "string",
+                        "title": "Tech Desc"
+                    },
+                    "client_description": {
+                        "type": "string",
+                        "title": "Client Description"
+                    },
+                    "players_count": {
+                        "type": "integer",
+                        "title": "Players Count"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Date"
+                    },
+                    "price_org": {
+                        "type": "number",
+                        "title": "Price Org"
+                    },
+                    "price_buy_in": {
+                        "type": "number",
+                        "title": "Price Buy In"
+                    },
+                    "id_status": {
+                        "type": "integer",
+                        "title": "Id Status"
+                    },
+                    "id_user": {
+                        "type": "integer",
+                        "title": "Id User"
+                    },
+                    "id_place": {
+                        "type": "integer",
+                        "title": "Id Place"
+                    },
+                    "users": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "$ref": "#/components/schemas/UserSchema"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Users"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "icon",
+                    "tech_desc",
+                    "client_description",
+                    "players_count",
+                    "date",
+                    "price_org",
+                    "price_buy_in",
+                    "id_status",
+                    "id_user",
+                    "id_place",
+                    "users"
+                ],
+                "title": "EventSchema"
+            },
+            "EventStatusGetSchema": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "title": "EventStatusGetSchema"
+            },
+            "EventStatusSchema": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "title": "EventStatusSchema"
+            },
+            "GameGetSchema": {
+                "properties": {
+                    "game_id": {
+                        "type": "integer",
+                        "title": "Game Id"
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "title": "User Id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "description": {
+                        "type": "string",
+                        "title": "Description"
+                    },
+                    "max_players_number": {
+                        "type": "integer",
+                        "title": "Max Players Number"
+                    },
+                    "state": {
+                        "type": "string",
+                        "title": "State"
+                    },
+                    "difficulty": {
+                        "type": "string",
+                        "title": "Difficulty"
+                    },
+                    "scenario": {
+                        "type": "string",
+                        "title": "Scenario"
+                    },
+                    "maps": {
+                        "items": {
+                            "$ref": "#/components/schemas/MapGetSchema"
+                        },
+                        "type": "array",
+                        "title": "Maps"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "game_id",
+                    "user_id",
+                    "name",
+                    "description",
+                    "max_players_number",
+                    "state",
+                    "difficulty",
+                    "scenario",
+                    "maps"
+                ],
+                "title": "GameGetSchema"
+            },
+            "GamePostSchema": {
+                "properties": {
+                    "user_id": {
+                        "type": "integer",
+                        "title": "User Id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "description": {
+                        "type": "string",
+                        "title": "Description"
+                    },
+                    "max_players_number": {
+                        "type": "integer",
+                        "title": "Max Players Number"
+                    },
+                    "state": {
+                        "type": "string",
+                        "title": "State"
+                    },
+                    "difficulty": {
+                        "type": "string",
+                        "title": "Difficulty"
+                    },
+                    "scenario": {
+                        "type": "string",
+                        "title": "Scenario"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "user_id",
+                    "name",
+                    "description",
+                    "max_players_number",
+                    "state",
+                    "difficulty",
+                    "scenario"
+                ],
+                "title": "GamePostSchema"
+            },
+            "GameStateGetSchema": {
+                "properties": {
+                    "game_id": {
+                        "type": "integer",
+                        "title": "Game Id"
+                    },
+                    "state": {
+                        "type": "string",
+                        "title": "State"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "game_id",
+                    "state"
+                ],
+                "title": "GameStateGetSchema"
+            },
+            "GameplayGetSchema": {
+                "properties": {
+                    "gameplay_id": {
+                        "type": "integer",
+                        "title": "Gameplay Id"
+                    },
+                    "game_id": {
+                        "type": "integer",
+                        "title": "Game Id"
+                    },
+                    "player_id": {
+                        "type": "integer",
+                        "title": "Player Id"
+                    },
+                    "points": {
+                        "type": "integer",
+                        "title": "Points"
+                    },
+                    "time": {
+                        "type": "integer",
+                        "title": "Time"
+                    },
+                    "players_placement": {
+                        "type": "string",
+                        "title": "Players Placement"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "gameplay_id",
+                    "game_id",
+                    "player_id",
+                    "points",
+                    "time",
+                    "players_placement"
+                ],
+                "title": "GameplayGetSchema"
+            },
+            "GameplayMilestoneGetSchema": {
+                "properties": {
+                    "gameplay_id": {
+                        "type": "integer",
+                        "title": "Gameplay Id"
+                    },
+                    "milestones": {
+                        "items": {
+                            "$ref": "#/components/schemas/MilestoneWithStatusSchema"
+                        },
+                        "type": "array",
+                        "title": "Milestones"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "gameplay_id",
+                    "milestones"
+                ],
+                "title": "GameplayMilestoneGetSchema"
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "JoinEventSchema": {
+                "properties": {
+                    "firstname": {
+                        "type": "string",
+                        "title": "Firstname"
+                    },
+                    "lastname": {
+                        "type": "string",
+                        "title": "Lastname"
+                    },
+                    "email": {
+                        "type": "string",
+                        "title": "Email"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "firstname",
+                    "lastname",
+                    "email"
+                ],
+                "title": "JoinEventSchema"
+            },
+            "MapGetSchema": {
+                "properties": {
+                    "map_id": {
+                        "type": "integer",
+                        "title": "Map Id"
+                    },
+                    "game_id": {
+                        "type": "integer",
+                        "title": "Game Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "map_id",
+                    "game_id"
+                ],
+                "title": "MapGetSchema"
+            },
+            "MapPostSchema": {
+                "properties": {
+                    "game_id": {
+                        "type": "integer",
+                        "title": "Game Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "game_id"
+                ],
+                "title": "MapPostSchema"
+            },
+            "MicrostoreItemGetSchema": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "description": {
+                        "type": "string",
+                        "title": "Description"
+                    },
+                    "price": {
+                        "type": "number",
+                        "title": "Price"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "name",
+                    "description",
+                    "price"
+                ],
+                "title": "MicrostoreItemGetSchema"
+            },
+            "MilestoneWithStatusSchema": {
+                "properties": {
+                    "milestone_id": {
+                        "type": "integer",
+                        "title": "Milestone Id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "description": {
+                        "type": "string",
+                        "title": "Description"
+                    },
+                    "is_reached": {
+                        "type": "boolean",
+                        "title": "Is Reached"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "milestone_id",
+                    "name",
+                    "description",
+                    "is_reached"
+                ],
+                "title": "MilestoneWithStatusSchema"
+            },
+            "NotFoundExceptionModel": {
+                "properties": {
+                    "detail": {
+                        "type": "string",
+                        "title": "Detail",
+                        "default": "Object not found"
+                    }
+                },
+                "type": "object",
+                "title": "NotFoundExceptionModel"
+            },
+            "PaymentGetSchema": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Date"
+                    },
+                    "amount": {
+                        "type": "integer",
+                        "title": "Amount"
+                    },
+                    "payment_method_id": {
+                        "type": "integer",
+                        "title": "Payment Method Id"
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "title": "User Id"
+                    },
+                    "event_id": {
+                        "type": "integer",
+                        "title": "Event Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "date",
+                    "amount",
+                    "payment_method_id",
+                    "user_id",
+                    "event_id"
+                ],
+                "title": "PaymentGetSchema"
+            },
+            "PaymentMethodGetSchema": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "payment_name": {
+                        "type": "string",
+                        "title": "Payment Name"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "payment_name"
+                ],
+                "title": "PaymentMethodGetSchema"
+            },
+            "PaymentPostSchema": {
+                "properties": {
+                    "date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Date"
+                    },
+                    "amount": {
+                        "type": "integer",
+                        "title": "Amount"
+                    },
+                    "payment_method_id": {
+                        "type": "integer",
+                        "title": "Payment Method Id"
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "title": "User Id"
+                    },
+                    "event_id": {
+                        "type": "integer",
+                        "title": "Event Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "date",
+                    "amount",
+                    "payment_method_id",
+                    "user_id",
+                    "event_id"
+                ],
+                "title": "PaymentPostSchema"
+            },
+            "PlaceGetSchema": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "number": {
+                        "type": "integer",
+                        "title": "Number"
+                    },
+                    "street": {
+                        "type": "string",
+                        "title": "Street"
+                    },
+                    "city": {
+                        "type": "string",
+                        "title": "City"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "number",
+                    "street",
+                    "city"
+                ],
+                "title": "PlaceGetSchema"
+            },
+            "PlacePostSchema": {
+                "properties": {
+                    "number": {
+                        "type": "integer",
+                        "title": "Number"
+                    },
+                    "street": {
+                        "type": "string",
+                        "title": "Street"
+                    },
+                    "city": {
+                        "type": "string",
+                        "title": "City"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "number",
+                    "street",
+                    "city"
+                ],
+                "title": "PlacePostSchema"
+            },
+            "PlayerInfoGetSchema": {
+                "properties": {
+                    "username": {
+                        "type": "string",
+                        "title": "Username"
+                    },
+                    "surname": {
+                        "type": "string",
+                        "title": "Surname"
+                    },
+                    "nickname": {
+                        "type": "string",
+                        "title": "Nickname"
+                    },
+                    "rank": {
+                        "type": "string",
+                        "title": "Rank"
+                    },
+                    "character_id": {
+                        "type": "integer",
+                        "title": "Character Id"
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "title": "User Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "username",
+                    "surname",
+                    "nickname",
+                    "rank",
+                    "character_id",
+                    "user_id"
+                ],
+                "title": "PlayerInfoGetSchema"
+            },
+            "QrGetSchema": {
+                "properties": {
+                    "qr_id": {
+                        "type": "integer",
+                        "title": "Qr Id"
+                    },
+                    "icon": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "binary"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Icon"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "qr_id",
+                    "icon"
+                ],
+                "title": "QrGetSchema"
+            },
+            "UserGetSchema": {
+                "properties": {
+                    "user_id": {
+                        "type": "integer",
+                        "title": "User Id"
+                    },
+                    "firstname": {
+                        "type": "string",
+                        "title": "Firstname"
+                    },
+                    "lastname": {
+                        "type": "string",
+                        "title": "Lastname"
+                    },
+                    "email": {
+                        "type": "string",
+                        "title": "Email"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "user_id",
+                    "firstname",
+                    "lastname",
+                    "email"
+                ],
+                "title": "UserGetSchema"
+            },
+            "UserPostSchema": {
+                "properties": {
+                    "firstname": {
+                        "type": "string",
+                        "title": "Firstname"
+                    },
+                    "lastname": {
+                        "type": "string",
+                        "title": "Lastname"
+                    },
+                    "email": {
+                        "type": "string",
+                        "title": "Email"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "firstname",
+                    "lastname",
+                    "email"
+                ],
+                "title": "UserPostSchema"
+            },
+            "UserSchema": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "firstname": {
+                        "type": "string",
+                        "title": "Firstname"
+                    },
+                    "lastname": {
+                        "type": "string",
+                        "title": "Lastname"
+                    },
+                    "email": {
+                        "type": "string",
+                        "title": "Email"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "firstname",
+                    "lastname",
+                    "email"
+                ],
+                "title": "UserSchema"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            }
+        }
+    }
+}
