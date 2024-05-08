@@ -16,7 +16,7 @@ async def get_games_by_user_id(user_id: int, db: Session = Depends(get_db)):
 
 @router.post("/")
 async def add_user(simple: UserPostSchema, db: Session = Depends(get_db)):
-    return add_game_user(simple, db)
+    return add_user(simple, db)
 
 @router.get("/{user_id}", response_model=UserGetSchema)
 async def get_user_by_id(user_id: int, db: Session = Depends(get_db)):

@@ -30,6 +30,6 @@ async def get_gameplay_status_by_id_route(gameplay_id: int, db = Depends(get_db)
 async def get_gameplay_milestones_by_gameplay_id_route(gameplay_id: int, db = Depends(get_db)):
     return get_gameplay_milestones_by_gameplay_id(gameplay_id, db)
 
-@router.get("/gameplay-milestones-by-game-id/{game_id}", response_model=GameplayMilestoneGetSchema)
+@router.get("/milestones-by-game-id/{game_id}", response_model=GameplayMilestoneGetSchema)
 async def get_gameplay_milestones_by_game_id_route(game_id: int, db = Depends(get_db)):
     return get_gameplay_milestones_by_game_id(game_id, db)
