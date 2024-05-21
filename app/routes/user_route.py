@@ -11,17 +11,17 @@ from config.exceptions import NotFoundExceptionModel
 router = APIRouter(prefix="/user")
 
 @router.get("/{user_id}/games", response_model=list[GameGetSchema])
-async def get_games_by_user_id(user_id: int, db: Session = Depends(get_db)):
+async def get_games_by_user_id_route(user_id: int, db: Session = Depends(get_db)):
     return get_games_items_by_user_id(user_id, db)
 
 @router.post("/")
-async def add_user(simple: UserPostSchema, db: Session = Depends(get_db)):
+async def add_user_route(simple: UserPostSchema, db: Session = Depends(get_db)):
     return add_user(simple, db)
 
 @router.get("/{user_id}", response_model=UserGetSchema)
-async def get_user_by_id(user_id: int, db: Session = Depends(get_db)):
+async def get_user_by_id_route(user_id: int, db: Session = Depends(get_db)):
     return get_game_user_by_id(user_id, db)
 
 @router.get("/{user_id}/bought_items", response_model=list[BoughtItemGetSchema])
-async def get_bought_items_by_user_id(user_id: int, db: Session = Depends(get_db)):
+async def get_bought_items_by_user_id_route(user_id: int, db: Session = Depends(get_db)):
     return get_game_bought_items_by_user_id(user_id, db)
