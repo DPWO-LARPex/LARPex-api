@@ -86,26 +86,33 @@ def delete(event_id: int, db: Session):
     db.commit()
     return db_Event
 
-def join(event_id: int, join_event: JoinEventSchema, db:Session):
+def sign_up(event_id: int, join_event: JoinEventSchema, db:Session):
     db_Event = db.query(EventModel).filter(EventModel.id == event_id).first()
     if (db_Event is None):
-        raise NotFoundException()
+        raise NotFoundException(detail="Event not found")
     
-    db_User = db.query(User).filter(User.email == join_event.email).first()
-    if (db_Event is None):
-        db_User = User(
-            firstname=join_event.firstname,
-            lastname=join_event.lastname,
-            email=join_event.email
-        )
+    db_User = db.query(User).filter(User.user_id == join_event.user_id).first()
+    if (db_User is None):
+        raise NotFoundException(detail="User not found")
+    
+    #TODO: dokonczyc walidacje id_character, id_payment
 
-        db.add(db_User)
-        db.commit()
-        db.refresh(db_User)
+    
+    # db_User = db.query(User).filter(User.email == join_event.email).first()
+    # if (db_Event is None):
+    #     db_User = User(
+    #         firstname=join_event.firstname,
+    #         lastname=join_event.lastname,
+    #         email=join_event.email
+    #     )
 
-    if (db_Event not in db_User.events):
-        db_User.events.append(db_Event)
-        db.commit()
+    #     db.add(db_User)
+    #     db.commit()
+    #     db.refresh(db_User)
+
+    # if (db_Event not in db_User.events):
+    #     db_User.events.append(db_Event)
+    #     db.commit()
 
     return
 
@@ -135,27 +142,27 @@ def get_status(event_id: int, db:Session):
     
     return db.query(EventStatusModel).filter(EventStatusModel.id == db_Event.id_status).first()
 
-def add_event_question(question: EventQuestionSchema, db: Session):
-    db_Event = db.query(EventModel).filter(EventModel.id == question.event_id).first()
-    if (db_Event is None):
-        raise NotFoundException(detail="Wydarzenie o podanym ID nie istnieje")
+# def add_event_question(question: EventQuestionSchema, db: Session):
+#     db_Event = db.query(EventModel).filter(EventModel.id == question.event_id).first()
+#     if (db_Event is None):
+#         raise NotFoundException(detail="Wydarzenie o podanym ID nie istnieje")
     
-    db_User = db.query(User).filter(User.user_id == question.user_id).first()
-    if (db_User is None):
-        raise NotFoundException(detail="Osoba o podanym ID nie istnieje")
+#     db_User = db.query(User).filter(User.user_id == question.user_id).first()
+#     if (db_User is None):
+#         raise NotFoundException(detail="Osoba o podanym ID nie istnieje")
     
-    db_Question = QuestionModel(
-        event_id = question.event_id,
-        user_id = question.user_id,
-        content = question.content
-        )
-    db.add(db_Question)
-    db.commit()
-    db.refresh(db_Question)
-    return db_Question
+#     db_Question = QuestionModel(
+#         event_id = question.event_id,
+#         user_id = question.user_id,
+#         content = question.content
+#         )
+#     db.add(db_Question)
+#     db.commit()
+#     db.refresh(db_Question)
+#     return db_Question
 
-def get_event_questions(event_id: int, db: Session):
-    return db.query(QuestionModel).filter(QuestionModel.event_id == event_id).all()
+# def get_event_questions(event_id: int, db: Session):
+#     return db.query(QuestionModel).filter(QuestionModel.event_id == event_id).all()
 
 def get_users(event_id: int, db: Session):
     db_Event = db.query(EventModel).filter(EventModel.id == event_id).first()

@@ -22,9 +22,13 @@ async def get_event(event_id: int, db: Session = Depends(get_db)):
 async def create_event(event: CreateEventSchema, db: Session = Depends(get_db)):
     return create(event, db)
 
-@router.post("/{event_id}/join")
-async def join_event(event_id: int, event: JoinEventSchema, db: Session = Depends(get_db)):
-    return join(event_id, event, db)
+@router.post("/{event_id}/sing_up")
+async def sign_up_for_event(event_id: int, event: JoinEventSchema, db: Session = Depends(get_db)):
+    return sign_up(event_id, event, db)
+
+@router.post("/{event_id}/join_event")
+async def join_event(event_id: int, db: Session = Depends(get_db)):
+    return join(event_id, db)
 
 @router.put("/{event_id}", response_model=EventSchema)
 async def edit_event(event_id: int, event: CreateEventSchema, db: Session = Depends(get_db)):
@@ -46,13 +50,13 @@ async def end_event(event_id: int, db: Session = Depends(get_db)):
 async def get_event_status(event_id: int, db: Session = Depends(get_db)):
     return get_status(event_id, db)
 
-@router.post("/question")
-async def send_question(question: EventQuestionSchema, db: Session = Depends(get_db)):
-    return add_event_question(question, db)
+# @router.post("/question")
+# async def send_question(question: EventQuestionSchema, db: Session = Depends(get_db)):
+#     return add_event_question(question, db)
 
-@router.get("/{event_id}/questions")
-async def get_questions(event_id: int, db: Session = Depends(get_db)):
-    return get_event_questions(event_id, db)
+# @router.get("/{event_id}/questions")
+# async def get_questions(event_id: int, db: Session = Depends(get_db)):
+#     return get_event_questions(event_id, db)
 
 @router.get("/{event_id}/users")
 async def get_event_users(event_id: int, db: Session = Depends(get_db)):
