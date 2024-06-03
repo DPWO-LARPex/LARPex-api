@@ -6,7 +6,7 @@ from config.exceptions import NotFoundException, ObjectAlreadyExistsException
 from schemas.inventory.inventory_get_schema import InventoryGetSchema
 
 
-def get_character_inventory_by_user_id(db: Session, user_id: int):
+def get_character_inventory_by_user_id(user_id: int, db: Session):
     # find player by user_id
     player = None
     try:
@@ -14,17 +14,10 @@ def get_character_inventory_by_user_id(db: Session, user_id: int):
     except NotFoundException:
         raise NotFoundException(detail="Player not found")
     
-    character_id = player.character.character_id
+    player_id = player.player_id
 
-    db_Inventory = db.query(InventoryModel).filter(InventoryModel.character_id == character_id).first()
+    db_Inventory = db.query(InventoryModel).filter(InventoryModel.player_id == player_id).first()
     if(db_Inventory is None):
         raise NotFoundException()
 
-    inventory_dto = InventoryGetSchema(
-        character_id=character_id,
-        capacity=db_Inventory.capacity,
-        inventory_id=db_Inventory.inventory_id,
-        items=db_Inventory.items
-    )
-    
     return db_Inventory

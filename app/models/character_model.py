@@ -17,4 +17,3 @@ class CharacterModel(Base):
     # race = relationship("RaceModel", back_populates="characters")
     # class_ = relationship("ClassModel", back_populates="characters")
     players = relationship("PlayerModel", back_populates="character")
-    inventory = relationship("InventoryModel", back_populates="character")

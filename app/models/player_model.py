@@ -19,4 +19,4 @@ class PlayerModel(Base):
     character = relationship("CharacterModel", back_populates="players")
     gameplays = relationship("Gameplay", back_populates="players")
     events = relationship("EventModel", secondary="UczestnicyWydarzenia", back_populates="players")
-
+    inventory = relationship("InventoryModel", back_populates="player")
