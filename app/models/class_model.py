@@ -12,5 +12,5 @@ class ClassModel(Base):
     description = Column(Text, name="opis")
     bonuses = Column(Text, name="bonusy")
 
-    characters = relationship("CharacterModel", back_populates="class_")
+    #characters = relationship("CharacterModel", back_populates="class_")
     
