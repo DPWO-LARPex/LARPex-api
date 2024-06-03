@@ -12,4 +12,3 @@ class RaceModel(Base):
     bonuses = Column(Text, name="bonusy")
 
     characters = relationship("CharacterModel", back_populates="race")
-
