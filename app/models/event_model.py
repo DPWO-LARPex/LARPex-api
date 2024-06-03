@@ -10,7 +10,7 @@ class EventModel(Base):
     __tablename__ = "Wydarzenie"
 
     id = Column(Integer, primary_key=True, index=True, name="id_wydarzenia")
-    icon = Column(LargeBinary, name="ikona")
+    icon = Column(Text, name="ikona_url")
     tech_desc = Column(Text, name="opis_techniczny")
     client_description = Column(Text, name="opis_klient")
     players_count = Column(Integer, name="liczba_graczy")
@@ -22,10 +22,12 @@ class EventModel(Base):
     #id_user = Column(Integer, name="id_osoby")
     id_place = Column(Integer, ForeignKey("Placowka.id_placowki"), name="id_placowki")
 
+    gameplays = relationship("Gameplay", back_populates="event")
     status = relationship("EventStatusModel", back_populates="event")
     place = relationship("PlaceModel", back_populates="event")
     user = relationship("User", back_populates="event")
     players = relationship("PlayerModel", secondary="UczestnicyWydarzenia", back_populates="events")
+    payments = relationship("PaymentModel", secondary="OplataZaWydarzenie", back_populates="events")
 
 player_event_association = Table('UczestnicyWydarzenia', Base.metadata,
     Column('id_gracza', Integer, ForeignKey('Gracz.id_gracza')),

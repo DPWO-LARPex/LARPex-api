@@ -5,7 +5,7 @@ from datetime import datetime
 
 class CreateEventSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
-    icon: bytes
+    icon: str
     tech_desc: str
     client_description: str
     players_count: int

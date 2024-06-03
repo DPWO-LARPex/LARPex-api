@@ -12,3 +12,4 @@ class ItemModel(Base):
     description = Column(Text, name="opis")
 
     inventories = relationship("InventoryContentModel", back_populates="item")
+    payments = relationship("PaymentModel", secondary="Mikroplatnosc", back_populates="items")

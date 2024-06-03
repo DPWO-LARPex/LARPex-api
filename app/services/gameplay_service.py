@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
+from models.event_model import EventModel
 from schemas.game.game_get_schema import GameGetSchema
-from schemas.gameplay.gameplay_game_get_schema import GameplayGameGetSchema
+from schemas.gameplay.gameplay_event_get_schema import GameplayEventGetSchema
 from schemas.milestone.milestone_with_status_schema import MilestoneWithStatusSchema
 from schemas.gameplay_milestones.gameplay_milestone_get_schema import GameplayMilestoneGetSchema
 from models.gameplay_milestone import GameplayMilestone
@@ -13,20 +14,17 @@ from config.exceptions import NotFoundException, ObjectAlreadyExistsException
 
 
 
-def get_gameplay_status_by_game_id(game_id: int, db: Session):
-    #TODO: dodac gameplay
-    # check if game exists
-    game = None
-    try:
-        game = get_game_item_by_id(game_id, db)
-    except NotFoundException:
-        raise NotFoundException(detail="Game not found")
-    
-    gameplay = None
-    try:
-        gameplay = db.query(Gameplay).filter(Gameplay.game_id == game_id).first()
-    except NotFoundException:
+def get_gameplay_status_by_event_id(event_id: int, db: Session) -> Gameplay:
+
+    event = db.query(EventModel).filter(EventModel.id == event_id).first()
+    if(event is None):
+        raise NotFoundException(detail="Event not found")
+
+    if(len(event.gameplays) == 0):
         raise NotFoundException(detail="Gameplay not found")
+    
+    gameplay = event.gameplays[0]
+
     return gameplay
 
 def get_gameplay_by_id(gameplay_id: int, db: Session):
@@ -58,10 +56,8 @@ def get_gameplay_milestones_by_gameplay_id(gameplay_id: int, db: Session):
 
     return res
 
-def get_gameplay_milestones_by_game_id(game_id: int, db: Session):
-    # check if game exists
-    gameplay = get_gameplay_status_by_game_id(game_id, db)
-    print(gameplay.gameplay_id)
+def get_gameplay_milestones_by_event_id(event_id: int, db: Session):
+    gameplay = get_gameplay_status_by_event_id(event_id, db)
 
     gameplay_milestones =  gameplay.milestones
     collected_milestones = []

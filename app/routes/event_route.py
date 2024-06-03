@@ -59,4 +59,4 @@ async def get_event_status(event_id: int, db: Session = Depends(get_db)):
 
 @router.get("/{event_id}/users")
 async def get_event_users(event_id: int, db: Session = Depends(get_db)):
-    return get_users(event_id, db)
+    return get_players(event_id, db)

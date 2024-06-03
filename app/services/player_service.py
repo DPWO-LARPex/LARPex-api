@@ -33,12 +33,13 @@ def get_player_info_by_user_id(user_id: int, db: Session):
     if(db_Player is None):
         raise NotFoundException()
     
-    player_info = PlayerInfoGetSchema()
-    player_info.user_id = db_Player.user_id
-    player_info.nickname = db_Player.nickname
-    player_info.rank = db_Player.rank
-    player_info.username = db_User.firstname
-    player_info.surname = db_User.lastname
-    player_info.character_id = db_Player.character_id
+    player_info = PlayerInfoGetSchema(
+        user_id = db_Player.user_id,
+        nickname = db_Player.nickname,
+        rank = db_Player.rank,
+        username = db_User.firstname,
+        surname = db_User.lastname,
+        character_id = db_Player.character_id
+    )
 
-    return db_Player
+    return player_info

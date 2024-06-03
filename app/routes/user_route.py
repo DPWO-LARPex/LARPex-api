@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+from schemas.item.item_get_schema import ItemGetSchema
 from config.database import get_db
 from schemas.game.game_get_schema import GameGetSchema
 from schemas.user.user_get_schema import UserGetSchema
@@ -22,6 +23,6 @@ async def add_user_route(simple: UserPostSchema, db: Session = Depends(get_db)):
 async def get_user_by_id_route(user_id: int, db: Session = Depends(get_db)):
     return get_game_user_by_id(user_id, db)
 
-@router.get("/{user_id}/bought_items", response_model=list[BoughtItemGetSchema])
+@router.get("/{user_id}/bought_items", response_model=list[ItemGetSchema])
 async def get_bought_items_by_user_id_route(user_id: int, db: Session = Depends(get_db)):
     return get_game_bought_items_by_user_id(user_id, db)

@@ -6,7 +6,7 @@ from datetime import datetime
 class EventDetailsSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id : int
-    icon : bytes | None
+    icon : str | None
     tech_desc : str
     client_description : str
     players_count : int

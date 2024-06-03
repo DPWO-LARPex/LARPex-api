@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from services.microstore_service import get_bought_microitems_by_user_id
 from models.user import User
 from schemas.user.user_post_schema import UserPostSchema
 from schemas.user.user_get_schema import UserGetSchema
@@ -27,7 +28,11 @@ def add_user(simple: UserPostSchema, db: Session):
     return db_user
 
 def get_game_bought_items_by_user_id(user_id:int, db: Session):
-    item_dto = BoughtItemGetSchema()
-    item_dto.is_premium = True
-    item_dto.virtual_currency = 120
-    return item_dto
+
+    items = get_bought_microitems_by_user_id(user_id, db)
+
+    # item_dto = BoughtItemGetSchema()
+    # item_dto.is_premium = True
+    # item_dto.virtual_currency = 120
+    # item_dto.user_id = user_id
+    return items

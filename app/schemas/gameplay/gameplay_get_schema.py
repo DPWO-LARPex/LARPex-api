@@ -8,7 +8,7 @@ class GameplayGetSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     gameplay_id: int
-    game_id: int
+    event_id: int
     player_id: int
     points: int
     time: int

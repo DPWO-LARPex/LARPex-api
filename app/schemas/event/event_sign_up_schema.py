@@ -9,5 +9,5 @@ class EventSignUpSchema(BaseModel):
     lastname : str
     email : str
     #user_id: str
-    character_id: str
-    payment_id: str
+    character_id: int
+    payment_id: int

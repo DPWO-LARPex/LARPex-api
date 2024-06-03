@@ -173,9 +173,9 @@ def get_status(event_id: int, db:Session):
     
     return db.query(EventStatusModel).filter(EventStatusModel.id == db_Event.id_status).first()
 
-def get_users(event_id: int, db: Session):
+def get_players(event_id: int, db: Session):
     db_Event = db.query(EventModel).filter(EventModel.id == event_id).first()
     if (db_Event is None):
         raise NotFoundException()
 
-    return db_Event.users
+    return db_Event.players

@@ -7,7 +7,5 @@ def processQRCode(qr_id: int, db: Session):
     qr: QrModel = db.query(QrModel).filter(QrModel.qr_id == qr_id).first()
     if (qr is None):
         raise NotFoundException(detail="User not found")
-    '''
-    else:
-        return url
-    '''
+
+    return qr

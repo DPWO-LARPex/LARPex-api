@@ -14,6 +14,6 @@ async def get_payments_route(db: Session = Depends(get_db)):
 async def get_payment_by_id_route(payment_id: int, db: Session = Depends(get_db)):
     return get_payment_by_id(payment_id, db)
 
-@router.put("/{payment_id}", response_model=PaymentGetSchema)
-async def edit_payment_route(payment_id: int, payment: PaymentPostSchema, db: Session = Depends(get_db)):
-    return edit_payment(payment_id, payment, db)
+# @router.put("/{payment_id}", response_model=PaymentGetSchema)
+# async def edit_payment_route(payment_id: int, payment: PaymentPostSchema, db: Session = Depends(get_db)):
+#     return edit_payment(payment_id, payment, db)

@@ -15,11 +15,6 @@ class Game(Base):
     max_players_number = Column(Integer, name="max_liczba_graczy")
     user_id = Column(Integer, ForeignKey("Osoba.id_osoby"), name="id_osoby")
 
-    # TODO: wywala bledy 
-    """Could not determine join condition between parent/child tables on relationship User.games 
-    - there are no foreign keys linking these tables.  
-    Ensure that referencing columns are associated with a ForeignKey or ForeignKeyConstraint, 
-    or specify a 'primaryjoin' expression."""
     user = relationship("User", back_populates="games")
     maps = relationship("Map", back_populates="game")
-    gameplays = relationship("Gameplay", back_populates="game")
+    payments = relationship("PaymentModel", secondary="OplataZaGre", back_populates="games")
