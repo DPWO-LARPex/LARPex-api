@@ -10,5 +10,5 @@ class CharactersSchema(BaseModel):
     character_id : int
     name : str
     bio : str
-    race: RaceSchema
-    class_: ClassSchema
+    #race: RaceSchema
+    #class_: ClassSchema
