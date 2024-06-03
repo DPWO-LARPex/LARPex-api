@@ -14,5 +14,4 @@ async def get_available_event_characters(event_id: int, db: Session = Depends(ge
 
 @router.get("/", response_model=list[CharactersSchema])
 async def get_available_characters(db: Session = Depends(get_db)):
-    print("Characters: : : :: : :")
     return get_all_characters(db)
