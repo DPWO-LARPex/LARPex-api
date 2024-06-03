@@ -3,7 +3,6 @@ from config.database import get_db
 from schemas.event.create_event_schema import CreateEventSchema
 from schemas.event.event_schema import EventSchema
 from schemas.event.event_status_schema import EventStatusSchema
-from schemas.event.event_question_schema import EventQuestionSchema
 from schemas.event.event_sign_up_schema import EventSignUpSchema
 from services.event_service import *
 from config.exceptions import NotFoundExceptionModel
