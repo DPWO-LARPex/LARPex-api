@@ -1,5 +1,6 @@
 from sqlalchemy import Boolean, Column, Integer, String, Date, Float, Text, ForeignKey, LargeBinary, Table
 from sqlalchemy.orm import relationship
+from models.player_model import PlayerModel
 from models.base import Base
 from models.user import User
 # from models.event_status_model import EventStatusModel
@@ -24,12 +25,13 @@ class EventModel(Base):
     status = relationship("EventStatusModel", back_populates="event")
     place = relationship("PlaceModel", back_populates="event")
     user = relationship("User", back_populates="event")
+    players = relationship("PlayerModel", secondary="UczestnicyWydarzenia", back_populates="events")
 
-user_event_association = Table('UczestnicyWydarzenia', Base.metadata,
-    Column('id_gracza', Integer, ForeignKey('Osoba.id_osoby')),
+player_event_association = Table('UczestnicyWydarzenia', Base.metadata,
+    Column('id_gracza', Integer, ForeignKey('Gracz.id_gracza')),
     Column('id_wydarzenia', Integer, ForeignKey('Wydarzenie.id_wydarzenia'))
 )
 
-# Dodanie relacji wiele do wielu do klas User i Event
-User.events = relationship("EventModel", secondary=user_event_association, back_populates="users")
-EventModel.users = relationship("User", secondary=user_event_association, back_populates="events")
+# # Dodanie relacji wiele do wielu do klas Player i Event
+# PlayerModel.events = relationship("EventModel", secondary=player_event_association, back_populates="players")
+# EventModel.players = relationship("PlayerModel", secondary=player_event_association, back_populates="events")

@@ -5,6 +5,15 @@ from models.player_model import PlayerModel
 from models.game import Game
 from config.exceptions import NotFoundException, ObjectAlreadyExistsException
 
+def create_player(player: PlayerModel, db: Session):
+    db_Player = db.query(PlayerModel).filter(PlayerModel.user_id == player.user_id).first()
+    if(db_Player is not None):
+        raise ObjectAlreadyExistsException()
+    
+    db.add(player)
+    db.commit()
+    db.refresh(player)
+    return player
 
 def get_player_by_user_id(user_id: int, db: Session):
     #TODO: to nie ma sensu, player powinien miec swoje ID !

@@ -4,7 +4,7 @@ from schemas.event.create_event_schema import CreateEventSchema
 from schemas.event.event_schema import EventSchema
 from schemas.event.event_status_schema import EventStatusSchema
 from schemas.event.event_question_schema import EventQuestionSchema
-from schemas.event.join_event_schema import JoinEventSchema
+from schemas.event.event_sign_up_schema import EventSignUpSchema
 from services.event_service import *
 from config.exceptions import NotFoundExceptionModel
 
@@ -22,13 +22,13 @@ async def get_event(event_id: int, db: Session = Depends(get_db)):
 async def create_event(event: CreateEventSchema, db: Session = Depends(get_db)):
     return create(event, db)
 
-@router.post("/{event_id}/sing_up")
-async def sign_up_for_event(event_id: int, event: JoinEventSchema, db: Session = Depends(get_db)):
+@router.post("/{event_id}/sign_up", response_model=EventSignUpResponseSchema)
+async def sign_up_for_event(event_id: int, event: EventSignUpSchema, db: Session = Depends(get_db)):
     return sign_up(event_id, event, db)
 
 @router.post("/{event_id}/join_event")
-async def join_event(event_id: int, db: Session = Depends(get_db)):
-    return join(event_id, db)
+async def join_event(event_id: int, event_join: EventJoinSchema, db: Session = Depends(get_db)):
+    return join(event_id, event_join, db)
 
 @router.put("/{event_id}", response_model=EventSchema)
 async def edit_event(event_id: int, event: CreateEventSchema, db: Session = Depends(get_db)):

@@ -1,4 +1,10 @@
 from sqlalchemy.orm import Session
+from schemas.event.event_sign_up_response_schema import EventSignUpResponseSchema
+from schemas.event.event_join_schema import EventJoinSchema
+from services.player_service import create_player
+from schemas.user.user_post_schema import UserPostSchema
+from services.user_service import add_user
+from models.player_model import PlayerModel
 from models.event_model import EventModel
 from models.event_status_model import EventStatusModel
 from schemas.event.create_event_schema import CreateEventSchema
@@ -6,7 +12,7 @@ from models.user import User
 from models.place_model import PlaceModel
 from models.question_model import QuestionModel
 from schemas.event.event_schema import EventSchema
-from schemas.event.join_event_schema import JoinEventSchema
+from schemas.event.event_sign_up_schema import EventSignUpSchema
 from schemas.event.event_question_schema import EventQuestionSchema
 from config.exceptions import NotFoundException, ObjectAlreadyExistsException
 
@@ -86,35 +92,63 @@ def delete(event_id: int, db: Session):
     db.commit()
     return db_Event
 
-def sign_up(event_id: int, join_event: JoinEventSchema, db:Session):
+def join(event_id: int, event_join: EventJoinSchema, db:Session):
+    db_Event = db.query(EventModel).filter(EventModel.id == event_id).first()
+    if (db_Event is None):
+        raise NotFoundException(detail="Event not found")
+
+    db_Player = db.query(PlayerModel).filter(PlayerModel.player_id == event_join.player_id).first()
+    if (db_Player is None):
+        raise NotFoundException(detail="Player not found")
+    
+    if db_Player not in db_Event.players:
+        raise NotFoundException(detail="Player not in event")
+    
+    return True
+
+# Tworzy osobe i gracza jesli nie ma, a nastepnie dodaje do wydarzenia
+def sign_up(event_id: int, join_event: EventSignUpSchema, db:Session):
     db_Event = db.query(EventModel).filter(EventModel.id == event_id).first()
     if (db_Event is None):
         raise NotFoundException(detail="Event not found")
     
-    db_User = db.query(User).filter(User.user_id == join_event.user_id).first()
+    db_User = db.query(User).filter(User.email == join_event.email).first()
+
     if (db_User is None):
-        raise NotFoundException(detail="User not found")
+       new_user = UserPostSchema(
+              firstname = join_event.firstname,
+              lastname = join_event.lastname,
+              email = join_event.email
+       )
+       db_User = add_user(new_user, db)
+
+    db_Player = db.query(PlayerModel).filter(PlayerModel.user_id == db_User.user_id).first()
+
+    if(db_Player is None):
+        db_Player = PlayerModel(
+            nickname = join_event.firstname + "_" + join_event.lastname,
+            rank = "none",
+            user_id = db_User.user_id,
+            character_id = join_event.character_id
+        )
+        db_Player = create_player(db_Player, db)
     
-    #TODO: dokonczyc walidacje id_character, id_payment
+    if db_Player in db_Event.players:
+        raise ObjectAlreadyExistsException(detail="Player already in event")
 
-    
-    # db_User = db.query(User).filter(User.email == join_event.email).first()
-    # if (db_Event is None):
-    #     db_User = User(
-    #         firstname=join_event.firstname,
-    #         lastname=join_event.lastname,
-    #         email=join_event.email
-    #     )
+    # add player to event to table UczestnicyWydarzenia
+    db_Event.players.append(db_Player)
+    db.commit()
+    db.refresh(db_Event)
 
-    #     db.add(db_User)
-    #     db.commit()
-    #     db.refresh(db_User)
+    response = EventSignUpResponseSchema(
+        event_id = db_Event.id,
+        player_id = db_Player.player_id,
+        user_id= db_User.user_id
+    )
 
-    # if (db_Event not in db_User.events):
-    #     db_User.events.append(db_Event)
-    #     db.commit()
+    return response
 
-    return
 
 def end(event_id: int, db:Session):
     db_Event = db.query(EventModel).filter(EventModel.id == event_id).first()
