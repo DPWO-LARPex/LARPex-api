@@ -13,7 +13,7 @@ router = APIRouter(prefix="/event")
 async def get_events(db: Session = Depends(get_db)):
     return get_all(db)
 
-@router.get("/{event_id}")
+@router.get("/{event_id}", response_model=EventSchema)
 async def get_event(event_id: int, db: Session = Depends(get_db)):
     return get_by_id(event_id, db)
 

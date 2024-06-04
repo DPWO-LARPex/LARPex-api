@@ -1,6 +1,8 @@
 from typing import Optional
 from pydantic import BaseModel
 from pydantic import BaseModel, ConfigDict, StringConstraints
+from models.player_model import PlayerModel
+from schemas.player.player_info_get_schema import PlayerInfoGetSchema
 from schemas.user.user_schema import UserSchema
 from datetime import datetime
 
@@ -17,4 +19,4 @@ class EventSchema(BaseModel):
     id_status : int
     id_user : int
     id_place : int
-    users: list[UserSchema] | None
+    #players: list[] | None
