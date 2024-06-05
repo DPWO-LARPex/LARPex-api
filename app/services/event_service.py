@@ -95,7 +95,9 @@ def join(event_id: int, event_join: EventJoinSchema, db:Session):
     if (db_Event is None):
         raise NotFoundException(detail="Event not found")
 
-    db_Player = db.query(PlayerModel).filter(PlayerModel.player_id == event_join.player_id).first()
+    #db_Player = db.query(PlayerModel).filter(PlayerModel.player_id == event_join.player_id).first()
+    # by userid
+    db_Player = db.query(PlayerModel).filter(PlayerModel.user_id == event_join.player_id).first()
     if (db_Player is None):
         raise NotFoundException(detail="Player not found")
     
