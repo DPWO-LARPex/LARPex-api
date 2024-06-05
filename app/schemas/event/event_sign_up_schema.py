@@ -8,6 +8,6 @@ class EventSignUpSchema(BaseModel):
     firstname : str
     lastname : str
     email : str
-    #user_id: str
+    user_id: int
     character_id: int
     #payment_id: int

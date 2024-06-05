@@ -4,4 +4,4 @@ from pydantic import BaseModel, ConfigDict, StringConstraints
 from datetime import datetime
 
 class EventJoinSchema(BaseModel):
-    player_id: int
+    user_id: int

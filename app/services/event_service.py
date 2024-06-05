@@ -97,14 +97,14 @@ def join(event_id: int, event_join: EventJoinSchema, db:Session):
 
     #db_Player = db.query(PlayerModel).filter(PlayerModel.player_id == event_join.player_id).first()
     # by userid
-    db_Player = db.query(PlayerModel).filter(PlayerModel.user_id == event_join.player_id).first()
+    db_Player = db.query(PlayerModel).filter(PlayerModel.user_id == event_join.user_id).first()
     if (db_Player is None):
         raise NotFoundException(detail="Player not found")
     
     # if db_Player not in db_Event.players:
     #     raise NotFoundException(detail="Player not in event")
     
-    assoc = db.query(EventsPlayersModel).filter(EventsPlayersModel.player_id == db_Player.player_id).filter(EventsPlayersModel.event_id == db_Event.id).first()
+    assoc = db.query(EventsPlayersModel).filter(EventsPlayersModel.player_id == db_Player.user_id).filter(EventsPlayersModel.event_id == db_Event.id).first()
     if assoc is None:
         raise NotFoundException(detail="Player not in event")
     
@@ -119,7 +119,9 @@ def sign_up(event_id: int, join_event: EventSignUpSchema, db:Session):
     if (db_Event is None):
         raise NotFoundException(detail="Event not found")
     
-    db_User = db.query(User).filter(User.email == join_event.email).first()
+    db_User = db.query(User).filter(User.user_id == join_event.user_id).first()
+    
+    #db_User = db.query(User).filter(User.email == join_event.email).first()
 
     if (db_User is None):
        new_user = UserPostSchema(
@@ -162,6 +164,14 @@ def sign_up(event_id: int, join_event: EventSignUpSchema, db:Session):
 
     return response
 
+def get_events_by_user_id(user_id: int, db:Session):
+    db_User = db.query(User).filter(User.user_id == user_id).first()
+    if (db_User is None):
+        raise NotFoundException(detail="User not found")
+    
+    events = db_User.event
+
+    return events
 
 def end(event_id: int, db:Session):
     db_Event = db.query(EventModel).filter(EventModel.id == event_id).first()
