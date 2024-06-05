@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from models.events_players import EventsPlayersModel
 from schemas.event.event_sign_up_response_schema import EventSignUpResponseSchema
 from schemas.event.event_join_schema import EventJoinSchema
 from services.player_service import create_player
@@ -98,8 +99,15 @@ def join(event_id: int, event_join: EventJoinSchema, db:Session):
     if (db_Player is None):
         raise NotFoundException(detail="Player not found")
     
-    if db_Player not in db_Event.players:
+    # if db_Player not in db_Event.players:
+    #     raise NotFoundException(detail="Player not in event")
+    
+    assoc = db.query(EventsPlayersModel).filter(EventsPlayersModel.player_id == db_Player.player_id).filter(EventsPlayersModel.event_id == db_Event.id).first()
+    if assoc is None:
         raise NotFoundException(detail="Player not in event")
+    
+    assoc.is_joined = True
+    db.commit()
     
     return True
 
@@ -134,7 +142,13 @@ def sign_up(event_id: int, join_event: EventSignUpSchema, db:Session):
         raise ObjectAlreadyExistsException(detail="Player already in event")
 
     # add player to event to table UczestnicyWydarzenia
-    db_Event.players.append(db_Player)
+    assoc = EventsPlayersModel(
+        player_id = db_Player.player_id,
+        event_id = db_Event.id,
+        is_joined = False
+    )
+    db.add(assoc)
+    #db_Event.players.append(db_Player)
     db.commit()
     db.refresh(db_Event)
 

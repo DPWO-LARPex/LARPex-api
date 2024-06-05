@@ -26,13 +26,15 @@ class EventModel(Base):
     status = relationship("EventStatusModel", back_populates="event")
     place = relationship("PlaceModel", back_populates="event")
     user = relationship("User", back_populates="event")
+
+    players_association = relationship("EventsPlayersModel", back_populates="event")
     players = relationship("PlayerModel", secondary="UczestnicyWydarzenia", back_populates="events")
     payments = relationship("PaymentModel", secondary="OplataZaWydarzenie", back_populates="events")
 
-player_event_association = Table('UczestnicyWydarzenia', Base.metadata,
-    Column('id_gracza', Integer, ForeignKey('Gracz.id_gracza')),
-    Column('id_wydarzenia', Integer, ForeignKey('Wydarzenie.id_wydarzenia'))
-)
+# player_event_association = Table('UczestnicyWydarzenia', Base.metadata,
+#     Column('id_gracza', Integer, ForeignKey('Gracz.id_gracza')),
+#     Column('id_wydarzenia', Integer, ForeignKey('Wydarzenie.id_wydarzenia'))
+# )
 
 # # Dodanie relacji wiele do wielu do klas Player i Event
 # PlayerModel.events = relationship("EventModel", secondary=player_event_association, back_populates="players")

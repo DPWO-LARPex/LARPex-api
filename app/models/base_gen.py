@@ -22,3 +22,6 @@ from models.race_model import RaceModel
 from models.gameplay_model import Gameplay
 from models.gameplay_milestone import GameplayMilestone
 from models.milestone import Milestone
+
+#iterate 3
+from models.events_players import EventsPlayersModel
