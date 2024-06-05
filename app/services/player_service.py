@@ -42,4 +42,6 @@ def get_player_info_by_user_id(user_id: int, db: Session):
         character_id = db_Player.character_id
     )
 
+
+
     return player_info

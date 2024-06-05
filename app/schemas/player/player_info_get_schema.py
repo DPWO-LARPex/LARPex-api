@@ -8,5 +8,5 @@ class PlayerInfoGetSchema(BaseModel):
     surname: str
     nickname: str
     rank: str
-    character_id: int
+    character_id: int | None 
     user_id: int
