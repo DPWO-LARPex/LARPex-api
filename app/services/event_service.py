@@ -169,7 +169,14 @@ def get_events_by_user_id(user_id: int, db:Session):
     if (db_User is None):
         raise NotFoundException(detail="User not found")
     
-    events = db_User.event
+    db_Player = db.query(PlayerModel).filter(PlayerModel.user_id == db_User.user_id).first()
+    
+    asocs = db.query(EventsPlayersModel).filter(EventsPlayersModel.player_id == db_Player.player_id).all()
+
+    events = []
+    for assoc in asocs:
+        event = db.query(EventModel).filter(EventModel.id == assoc.event_id).first()
+        events.append(event)
 
     return events
 
