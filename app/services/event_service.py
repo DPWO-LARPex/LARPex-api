@@ -104,7 +104,7 @@ def join(event_id: int, event_join: EventJoinSchema, db:Session):
     # if db_Player not in db_Event.players:
     #     raise NotFoundException(detail="Player not in event")
     
-    assoc = db.query(EventsPlayersModel).filter(EventsPlayersModel.player_id == db_Player.user_id).filter(EventsPlayersModel.event_id == db_Event.id).first()
+    assoc = db.query(EventsPlayersModel).filter(EventsPlayersModel.player_id == db_Player.player_id).filter(EventsPlayersModel.event_id == db_Event.id).first()
     if assoc is None:
         raise NotFoundException(detail="Player not in event")
     
